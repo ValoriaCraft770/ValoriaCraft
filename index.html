@@ -5,25 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valoria Craft 1.20.1</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to bottom, #1e1e2f, #2e2e4f);
+    font-family: Arial, sans-serif;
+    background: url('https://i.imgur.com/9Z6eKZL.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: #fff;
     text-align: center;
 }
 
 header {
-    padding: 50px 20px 30px 20px;
+    padding: 50px 20px;
 }
 
 h1 {
     font-size: 4em;
-    margin-bottom: 10px;
     text-shadow: 2px 2px #000;
+    margin-bottom: 10px;
 }
 
 p.subtitle {
@@ -47,13 +46,13 @@ p.subtitle {
     background: #ffa033;
 }
 
-/* Sunucu IP ve kopyalama */
 #server-ip {
     font-weight: bold;
     background: rgba(0,0,0,0.5);
     padding: 5px 10px;
     border-radius: 5px;
 }
+
 button.copy-btn {
     padding: 5px 10px;
     margin-left: 10px;
@@ -67,7 +66,6 @@ button.copy-btn:hover {
     background: #ffa033;
 }
 
-/* Sunucu Durumu Kart */
 #server-status {
     margin-top: 30px;
     background: rgba(0,0,0,0.4);
@@ -75,12 +73,12 @@ button.copy-btn:hover {
     border-radius: 10px;
     display: inline-block;
 }
+
 #player-count {
     font-weight: bold;
     font-size: 1.2em;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     h1 { font-size: 2.5em; }
     p.subtitle { font-size: 1.2em; }
@@ -91,24 +89,22 @@ button.copy-btn:hover {
 <body>
 
 <header>
-    <h1>Valoria Craft</h1>
-    <p class="subtitle">Minecraft Sunucusu - Sürüm 1.20.1</p>
+<h1>Valoria Craft</h1>
+<p class="subtitle">Minecraft Sunucusu - Sürüm 1.20.1</p>
 
-    <!-- Butonlar -->
-    <a href="/ah" class="button">Market</a>
-    <a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
-    <a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
-    <a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
+<a href="/ah" class="button">Market</a>
+<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
+<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
+<a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
 
-    <!-- Sunucu IP -->
-    <p style="margin-top:30px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
-    <button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
+<p style="margin-top:30px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
+<button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
 
-    <!-- Sunucu Durumu -->
-    <div id="server-status">
-        <p>Şu anki oyuncu sayısı: <span id="player-count">-</span></p>
-        <p id="server-online-status">Durum: Yükleniyor...</p>
-    </div>
+<div id="server-status">
+<p>Şu anki oyuncu sayısı: <span id="player-count">-</span></p>
+<p id="server-online-status">Durum: Yükleniyor...</p>
+</div>
+
 </header>
 
 <script>
@@ -120,21 +116,11 @@ function copyIP() {
     });
 }
 
-// Sunucu durumu (Aternos için manuel veya API ile)
-function updateServerStatus() {
-    // Manuel örnek oyuncu sayısı
-    let playerCount = 5; // Burayı güncelleyebilirsin
-    document.getElementById('player-count').innerText = playerCount;
-
-    // Online / Offline durumu
-    let serverOnline = true; // true = açık, false = kapalı
-    document.getElementById('server-online-status').innerText = serverOnline ? "Durum: Online" : "Durum: Offline";
-}
-
-// Başlangıçta çalıştır
-updateServerStatus();
-
-// Eğer gerçek zamanlı çekmek istersen, Minecraft sunucu API (Aternos JSON veya başka API) kullanabilirsin.
+// Basit oyuncu sayısı ve sunucu durumu (manuel)
+let playerCount = 5; // Burayı güncelle
+document.getElementById('player-count').innerText = playerCount;
+let serverOnline = true; // true = Online, false = Offline
+document.getElementById('server-online-status').innerText = serverOnline ? "Durum: Online" : "Durum: Offline";
 </script>
 
 </body>
