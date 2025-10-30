@@ -13,11 +13,9 @@ body {
     color: #fff;
     text-align: center;
 }
-
 header { padding: 60px 20px 30px 20px; }
 h1 { font-size: 4em; margin-bottom: 10px; text-shadow: 3px 3px 5px #000; }
 p.subtitle { font-size: 1.5em; margin-bottom: 50px; text-shadow: 1px 1px 2px #000; }
-
 .button {
     display: inline-block;
     margin: 15px;
@@ -31,21 +29,16 @@ p.subtitle { font-size: 1.5em; margin-bottom: 50px; text-shadow: 1px 1px 2px #00
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 .button:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.5); }
-
 #server-ip { font-weight: bold; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 5px; margin-right: 5px; }
 button.copy-btn { padding:5px 12px; border:none; border-radius:5px; background:#ff7f50; color:#fff; cursor:pointer; transition:0.3s; }
 button.copy-btn:hover { background:#ff4500; }
-
 #server-status { margin-top:40px; background: rgba(0,0,0,0.4); padding:25px 30px; border-radius:15px; display:inline-block; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
 #player-count { font-weight: bold; font-size:1.3em; }
-
 .section { margin:50px 20px; padding:20px; background: rgba(0,0,0,0.3); border-radius:15px; text-align:left; max-width:800px; margin-left:auto; margin-right:auto; }
 .section h2 { font-size:2em; margin-bottom:15px; text-align:center; text-shadow:2px 2px #000; }
 .section ul { list-style: disc inside; }
-
 .news-item { background: rgba(0,0,0,0.5); padding:15px; border-radius:10px; margin-bottom:15px; cursor:pointer; }
 .news-item:hover { background: rgba(255,127,80,0.4); }
-
 @media(max-width:600px){
     h1 { font-size: 2.5em; }
     p.subtitle { font-size:1.2em; }
@@ -72,12 +65,12 @@ button.copy-btn:hover { background:#ff4500; }
 
 <!-- Sunucu durumu -->
 <div id="server-status">
-<p>Şu anki oyuncu sayısı: <span id="player-count">-</span></p>
-<p id="server-online-status">Durum: Yükleniyor...</p>
+<p>Şu anki oyuncu sayısı: <span id="player-count">5</span></p>
+<p id="server-online-status">Durum: Online</p>
 </div>
 </header>
 
-<!-- Kurallar Bölümü -->
+<!-- Kurallar -->
 <div class="section" id="rules">
 <h2>Kurallar</h2>
 <ul>
@@ -89,7 +82,7 @@ button.copy-btn:hover { background:#ff4500; }
 </ul>
 </div>
 
-<!-- Haberler Bölümü -->
+<!-- Haberler -->
 <div class="section" id="news">
 <h2>Haberler</h2>
 <div id="news-container"></div>
@@ -102,41 +95,17 @@ function copyIP(){
     navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
 }
 
-// Sunucu durumu ve oyuncu sayısı
-let playerCount = 5; // Manuel oyuncu sayısı
-document.getElementById('player-count').innerText = playerCount;
-let serverOnline = true; 
-document.getElementById('server-online-status').innerText = serverOnline ? "Durum: Online" : "Durum: Offline";
-
 // Haber ekleme fonksiyonu
-function addNews(title, fullContent){
+function addNews(id, title, fullContent){
     const container = document.getElementById('news-container');
+    const shortContent = fullContent.length > 100 ? fullContent.substr(0,100) + '...' : fullContent;
+
     const newsDiv = document.createElement('div');
     newsDiv.className = 'news-item';
-    newsDiv.dataset.views = 0; 
+    newsDiv.dataset.id = id;
     newsDiv.dataset.fullContent = fullContent;
+    newsDiv.dataset.shortContent = shortContent;
+    newsDiv.dataset.expanded = "false";
 
-    const shortContent = fullContent.length > 100 ? fullContent.substr(0,100) + '...' : fullContent;
-    newsDiv.innerHTML = `<h3>${title} <span class="views">Görüntüleme: 0</span></h3>
-                         <p class="content-preview">${shortContent}</p>`;
-
-    newsDiv.addEventListener('click', function(){
-        const currentViews = parseInt(newsDiv.dataset.views);
-        newsDiv.dataset.views = currentViews + 1;
-        newsDiv.querySelector('.views').innerText = 'Görüntüleme: ' + newsDiv.dataset.views;
-
-        // Tam içeriği göster
-        newsDiv.querySelector('.content-preview').innerText = newsDiv.dataset.fullContent;
-    });
-
-    container.prepend(newsDiv);
-}
-
-// Örnek haberler
-addNews("Sunucu Açıldı!", "Valoria Craft 1.20.1 sürümü ile sunucumuz aktif hale geldi! Herkesi sunucumuza bekliyoruz, birçok yeni özellik ve etkinlik mevcut. Kaçırmayın!");
-addNews("Etkinlik Duyurusu", "Hafta sonu özel etkinlikler başlayacak! Katılmak için sunucuda hazır olun. Etkinlik süresince ödüller kazanabilirsiniz.");
-
-</script>
-
-</body>
-</html>
+    // Görüntüleme sayısını localStorage'dan al
+    let views = localStorage.getItem('news_views_' + id) || 0;
