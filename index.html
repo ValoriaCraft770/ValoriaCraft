@@ -1,31 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valoria Craft 1.20.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #3a3a6e);
+    color: #fff;
+    text-align: center;
+}
+
+header { padding: 60px 20px 30px 20px; }
+h1 { font-size: 4em; margin-bottom: 10px; text-shadow: 3px 3px 5px #000; }
+p.subtitle { font-size: 1.5em; margin-bottom: 50px; text-shadow: 1px 1px 2px #000; }
+
+.button {
+    display: inline-block;
+    margin: 15px;
+    padding: 15px 35px;
+    background: linear-gradient(45deg,#ff7f50,#ff4500);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.button:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.5); }
+
+#server-ip { font-weight: bold; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 5px; margin-right: 5px; }
+button.copy-btn { padding:5px 12px; border:none; border-radius:5px; background:#ff7f50; color:#fff; cursor:pointer; transition:0.3s; }
+button.copy-btn:hover { background:#ff4500; }
+
+#server-status { margin-top:40px; background: rgba(0,0,0,0.4); padding:25px 30px; border-radius:15px; display:inline-block; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
+#player-count { font-weight: bold; font-size:1.3em; }
+
+.section { margin:50px 20px; padding:20px; background: rgba(0,0,0,0.3); border-radius:15px; text-align:left; max-width:800px; margin-left:auto; margin-right:auto; }
+.section h2 { font-size:2em; margin-bottom:15px; text-align:center; text-shadow:2px 2px #000; }
+.section ul { list-style: disc inside; }
+
+.news-item { background: rgba(0,0,0,0.5); padding:15px; border-radius:10px; margin-bottom:15px; cursor:pointer; }
+.news-item:hover { background: rgba(255,127,80,0.4); }
+
+@media(max-width:600px){
+    h1 { font-size: 2.5em; }
+    p.subtitle { font-size:1.2em; }
+    .button { padding:10px 25px; margin:10px; }
+    .section h2 { font-size:1.5em; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Valoria Craft</h1>
+<p class="subtitle">Minecraft Sunucusu - Sürüm 1.20.1</p>
+
+<!-- Butonlar -->
+<a href="/ah" class="button">Market</a>
+<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
+<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
+<a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
+
+<!-- Sunucu IP ve kopyalama -->
+<p style="margin-top:35px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
+<button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
+
+<!-- Sunucu durumu -->
+<div id="server-status">
+<p>Şu anki oyuncu sayısı: <span id="player-count">-</span></p>
+<p id="server-online-status">Durum: Yükleniyor...</p>
+</div>
+</header>
+
+<!-- Kurallar Bölümü -->
+<div class="section" id="rules">
+<h2>Kurallar</h2>
+<ul>
+<li>Küfür ve hakaret yasaktır.</li>
+<li>Hile yapmak yasaktır.</li>
+<li>Oyunculara saygılı olun.</li>
+<li>Reklam yapmak yasaktır.</li>
+<li>Yetkililerin talimatlarına uyun.</li>
+</ul>
+</div>
+
 <!-- Haberler Bölümü -->
 <div class="section" id="news">
 <h2>Haberler</h2>
-<div id="news-container">
-<!-- Haberler buraya eklenecek -->
-</div>
+<div id="news-container"></div>
 </div>
 
 <script>
+// IP kopyalama
+function copyIP(){
+    const ip = document.getElementById('server-ip').innerText;
+    navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
+}
+
+// Sunucu durumu ve oyuncu sayısı
+let playerCount = 5; // Manuel oyuncu sayısı
+document.getElementById('player-count').innerText = playerCount;
+let serverOnline = true; 
+document.getElementById('server-online-status').innerText = serverOnline ? "Durum: Online" : "Durum: Offline";
+
 // Haber ekleme fonksiyonu
 function addNews(title, fullContent){
     const container = document.getElementById('news-container');
-
-    // Haber verilerini saklamak
     const newsDiv = document.createElement('div');
     newsDiv.className = 'news-item';
-    newsDiv.dataset.views = 0; // Görüntüleme sayısı
+    newsDiv.dataset.views = 0; 
     newsDiv.dataset.fullContent = fullContent;
 
-    // Kısa içerik (ilk 100 karakter) + ...
-    const shortContent = fullContent.length > 100 ? fullContent.substr(0, 100) + '...' : fullContent;
+    const shortContent = fullContent.length > 100 ? fullContent.substr(0,100) + '...' : fullContent;
+    newsDiv.innerHTML = `<h3>${title} <span class="views">Görüntüleme: 0</span></h3>
+                         <p class="content-preview">${shortContent}</p>`;
 
-    newsDiv.innerHTML = `
-        <h3>${title} <span class="views">Görüntüleme: 0</span></h3>
-        <p class="content-preview">${shortContent}</p>
-    `;
-
-    // Tıklama olayı
     newsDiv.addEventListener('click', function(){
         const currentViews = parseInt(newsDiv.dataset.views);
         newsDiv.dataset.views = currentViews + 1;
@@ -35,9 +129,14 @@ function addNews(title, fullContent){
         newsDiv.querySelector('.content-preview').innerText = newsDiv.dataset.fullContent;
     });
 
-    container.prepend(newsDiv); // en üstte göster
+    container.prepend(newsDiv);
 }
 
 // Örnek haberler
 addNews("Sunucu Açıldı!", "Valoria Craft 1.20.1 sürümü ile sunucumuz aktif hale geldi! Herkesi sunucumuza bekliyoruz, birçok yeni özellik ve etkinlik mevcut. Kaçırmayın!");
 addNews("Etkinlik Duyurusu", "Hafta sonu özel etkinlikler başlayacak! Katılmak için sunucuda hazır olun. Etkinlik süresince ödüller kazanabilirsiniz.");
+
+</script>
+
+</body>
+</html>
