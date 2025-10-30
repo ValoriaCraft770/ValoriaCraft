@@ -4,85 +4,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valoria Craft 1.20.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: url('https://i.imgur.com/9Z6eKZL.jpg') no-repeat center center fixed;
-    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #3a3a6e);
     color: #fff;
     text-align: center;
 }
 
 header {
-    padding: 50px 20px;
+    padding: 60px 20px 30px 20px;
 }
 
 h1 {
     font-size: 4em;
-    text-shadow: 2px 2px #000;
     margin-bottom: 10px;
+    text-shadow: 3px 3px 5px #000;
 }
 
 p.subtitle {
     font-size: 1.5em;
-    margin-bottom: 40px;
-    text-shadow: 1px 1px #000;
+    margin-bottom: 50px;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .button {
     display: inline-block;
-    margin: 10px;
-    padding: 15px 30px;
-    background: #ff6600;
+    margin: 15px;
+    padding: 15px 35px;
+    background: linear-gradient(45deg,#ff7f50,#ff4500);
     color: #fff;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: bold;
     transition: 0.3s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 .button:hover {
-    background: #ffa033;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
 }
 
 #server-ip {
     font-weight: bold;
     background: rgba(0,0,0,0.5);
-    padding: 5px 10px;
+    padding: 5px 12px;
     border-radius: 5px;
+    margin-right: 5px;
 }
 
 button.copy-btn {
-    padding: 5px 10px;
-    margin-left: 10px;
+    padding: 5px 12px;
     border: none;
     border-radius: 5px;
-    background: #ff6600;
+    background: #ff7f50;
     color: #fff;
     cursor: pointer;
+    transition: 0.3s;
 }
 button.copy-btn:hover {
-    background: #ffa033;
+    background: #ff4500;
 }
 
 #server-status {
-    margin-top: 30px;
+    margin-top: 40px;
     background: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 10px;
+    padding: 25px 30px;
+    border-radius: 15px;
     display: inline-block;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
 #player-count {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
-@media (max-width: 600px) {
+@media(max-width:600px){
     h1 { font-size: 2.5em; }
     p.subtitle { font-size: 1.2em; }
-    .button { padding: 10px 20px; }
+    .button { padding: 10px 25px; margin: 10px; }
 }
 </style>
 </head>
@@ -92,35 +95,38 @@ button.copy-btn:hover {
 <h1>Valoria Craft</h1>
 <p class="subtitle">Minecraft Sunucusu - Sürüm 1.20.1</p>
 
+<!-- Butonlar -->
 <a href="/ah" class="button">Market</a>
 <a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
 <a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
 <a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
 
-<p style="margin-top:30px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
+<!-- Sunucu IP ve kopyalama -->
+<p style="margin-top:35px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
 <button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
 
+<!-- Sunucu durumu -->
 <div id="server-status">
 <p>Şu anki oyuncu sayısı: <span id="player-count">-</span></p>
 <p id="server-online-status">Durum: Yükleniyor...</p>
 </div>
-
 </header>
 
 <script>
 // IP kopyalama
-function copyIP() {
+function copyIP(){
     const ip = document.getElementById('server-ip').innerText;
-    navigator.clipboard.writeText(ip).then(() => {
-        alert('IP kopyalandı: ' + ip);
-    });
+    navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
 }
 
-// Basit oyuncu sayısı ve sunucu durumu (manuel)
-let playerCount = 5; // Burayı güncelle
+// Sunucu durumu ve oyuncu sayısı
+let playerCount = 5; // Manuel oyuncu sayısı
 document.getElementById('player-count').innerText = playerCount;
-let serverOnline = true; // true = Online, false = Offline
+
+let serverOnline = true; // true = online, false = offline
 document.getElementById('server-online-status').innerText = serverOnline ? "Durum: Online" : "Durum: Offline";
+
+// İstersen Aternos API ile gerçek zamanlı oyuncu sayısı çekebilirsin
 </script>
 
 </body>
