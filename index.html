@@ -12,17 +12,19 @@ body {
     color: #fff;
     text-align: center;
     padding: 50px;
+    margin: 0;
 }
 h1 {
     font-size: 4em;
     text-shadow: 2px 2px #000;
+    margin-bottom: 10px;
 }
 p {
     font-size: 1.5em;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-shadow: 1px 1px #000;
 }
-a {
+.button {
     display: inline-block;
     margin: 10px;
     padding: 15px 30px;
@@ -33,7 +35,25 @@ a {
     font-weight: bold;
     transition: 0.3s;
 }
-a:hover {
+.button:hover {
+    background: #ffa033;
+}
+#server-ip {
+    font-weight: bold;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+button.copy-btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #ff6600;
+    color: #fff;
+    cursor: pointer;
+}
+button.copy-btn:hover {
     background: #ffa033;
 }
 </style>
@@ -43,9 +63,31 @@ a:hover {
 <p>Minecraft Sunucusu - Sürüm 1.20.1</p>
 
 <!-- Butonlar -->
-<a href="/ah">Market</a>
-<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank">Rehber Form</a>
-<a href="https://www.youtube.com/@BeratSagirli" target="_blank">YouTube Kanalımız</a>
-<a href="https://github.com/ValoriaCraft770" target="_blank">GitHub Profili</a>
+<a href="/ah" class="button">Market</a>
+<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
+<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
+<a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
+
+<!-- Sunucu IP ve oyuncu sayısı -->
+<p>Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
+<button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
+
+<p>Şu anki oyuncu sayısı: <span id="player-count">-</span></p>
+
+<script>
+// IP kopyalama
+function copyIP() {
+    const ip = document.getElementById('server-ip').innerText;
+    navigator.clipboard.writeText(ip).then(() => {
+        alert('IP kopyalandı: ' + ip);
+    });
+}
+
+// Basit örnek oyuncu sayısı (manuel güncellenebilir)
+let playerCount = 5; // Buraya güncel oyuncu sayısını yazabilirsin
+document.getElementById('player-count').innerText = playerCount;
+
+// Eğer gerçek zamanlı çekmek istersen Minecraft sunucu API entegrasyonu gerekir.
+</script>
 </body>
 </html>
