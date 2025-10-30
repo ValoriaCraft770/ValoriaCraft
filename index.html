@@ -7,61 +7,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Roboto', sans-serif; background: linear-gradient(135deg,#1a1a2e,#3a3a6e); color:#fff; }
+body { font-family:'Roboto', sans-serif; background: linear-gradient(135deg,#1a1a2e,#3a3a6e); color:#fff; transition:0.3s; }
 a { text-decoration:none; color:inherit; }
-header { text-align:center; padding:80px 20px; }
-header h1 { font-size:4em; text-shadow:4px 4px 10px #000; margin-bottom:10px; }
-header p.subtitle { font-size:1.5em; margin-bottom:40px; text-shadow:1px 1px 2px #000; }
-.button { display:inline-block; margin:15px; padding:15px 35px; background:linear-gradient(45deg,#ff7f50,#ff4500); border-radius:12px; font-weight:bold; transition:0.3s; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
+header { text-align:center; padding:60px 20px; }
+header h1 { font-size:3.5em; text-shadow:4px 4px 10px #000; margin-bottom:10px; }
+header p.subtitle { font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px #000; }
+.button { display:inline-block; margin:10px; padding:12px 30px; background:linear-gradient(45deg,#ff7f50,#ff4500); border-radius:12px; font-weight:bold; transition:0.3s; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
 .button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5); }
 #server-ip { font-weight:bold; background:rgba(0,0,0,0.5); padding:5px 12px; border-radius:5px; margin-right:5px; }
 button.copy-btn { padding:5px 12px; border:none; border-radius:5px; background:#ff7f50; color:#fff; cursor:pointer; transition:0.3s; }
 button.copy-btn:hover { background:#ff4500; }
-#server-status { margin-top:40px; background:rgba(0,0,0,0.4); padding:25px 30px; border-radius:15px; display:inline-block; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
-#player-count { font-weight:bold; font-size:1.3em; }
-.section { margin:60px 20px; padding:30px; background:rgba(0,0,0,0.3); border-radius:20px; max-width:1000px; margin-left:auto; margin-right:auto; text-align:left; }
-.section h2 { font-size:2.5em; margin-bottom:20px; text-align:center; text-shadow:2px 2px #000; }
+#server-status { margin-top:25px; background:rgba(0,0,0,0.4); padding:20px 25px; border-radius:15px; display:inline-block; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
+#player-count { font-weight:bold; font-size:1.2em; }
+.section { margin:40px 20px; padding:25px; background:rgba(0,0,0,0.3); border-radius:20px; max-width:1000px; margin-left:auto; margin-right:auto; text-align:left; }
+.section h2 { font-size:2em; margin-bottom:15px; text-align:center; text-shadow:2px 2px #000; }
 .rules ul { list-style:disc inside; }
-.rules li { padding:8px 0; font-size:1.1em; }
+.rules li { padding:6px 0; font-size:1em; }
 .stats { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
-.stat-card { background:rgba(0,0,0,0.5); padding:20px; border-radius:15px; width:220px; text-align:center; transition:0.3s; }
+.stat-card { background:rgba(0,0,0,0.5); padding:15px; border-radius:15px; width:200px; text-align:center; transition:0.3s; }
 .stat-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
-footer { text-align:center; padding:40px 20px; background:rgba(0,0,0,0.5); margin-top:50px; border-top:2px solid #ff7f50; }
+#market-content { display:none; padding:40px 20px; text-align:center; min-height:70vh; background:url('https://i.ibb.co/XCzH0yw/vip-bg.jpg') center/cover no-repeat; position:relative; }
+.market-card { background:rgba(0,0,0,0.6); border-radius:15px; display:inline-block; margin:15px; padding:20px; width:200px; transition:0.3s; cursor:pointer; }
+.market-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
+.market-card h3 { margin-bottom:10px; }
+.market-card p { font-size:0.9em; margin-bottom:15px; }
+footer { text-align:center; padding:30px 20px; background:rgba(0,0,0,0.5); margin-top:40px; border-top:2px solid #ff7f50; }
 footer a { margin:0 10px; transition:0.3s; }
 footer a:hover { color:#ff4500; }
-#admin-panel { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999; padding:50px; overflow-y:auto; }
-.admin-section { margin-bottom:40px; }
-.admin-section input, .admin-section textarea { width:100%; padding:10px; border-radius:8px; border:none; margin-top:5px; }
-.admin-section button { margin-top:10px; padding:10px 20px; border:none; border-radius:8px; background:#ff7f50; color:#fff; cursor:pointer; transition:0.3s; }
-.admin-section button:hover { background:#ff4500; }
-@media(max-width:900px){ .stats { flex-direction:column; align-items:center; } .stat-card { width:80%; } }
-@media(max-width:600px){ header h1 { font-size:2.5em; } header p.subtitle { font-size:1.2em; } .button { padding:10px 25px; margin:10px; } }
+@media(max-width:900px){ .stats, .market-cards { flex-direction:column; align-items:center; } .stat-card, .market-card { width:80%; } }
+@media(max-width:600px){ header h1 { font-size:2em; } header p.subtitle { font-size:1em; } .button { padding:8px 20px; margin:8px; } }
 </style>
 </head>
 <body>
 
+<!-- Ana Sayfa -->
+<div id="main-content">
 <header>
 <h1>Valoria Craft</h1>
 <p class="subtitle">Minecraft Sunucusu - Sürüm 1.20.1</p>
 
-<a href="/ah" class="button" id="market-btn">Market</a>
-<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button" id="form-btn">Rehber Form</a>
-<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button" id="youtube-btn">YouTube Kanalımız</a>
-<a href="https://github.com/ValoriaCraft770" target="_blank" class="button" id="github-btn">GitHub Profili</a>
+<a href="#" class="button" id="market-link">Market</a>
+<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
+<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
+<a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
 
-<p style="margin-top:35px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
+<p style="margin-top:25px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
 <button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
 
 <div id="server-status">
 <p>Şu anki oyuncu sayısı: <span id="player-count">0</span></p>
 <p id="server-online-status">Durum: Bilinmiyor</p>
 </div>
-<button class="button" onclick="openAdminPanel()">Admin Paneli Aç</button>
 </header>
 
 <div class="section rules">
 <h2>Kurallar</h2>
-<ul id="rules-list">
+<ul>
 <li>Küfür ve hakaret yasaktır.</li>
 <li>Hile yapmak yasaktır.</li>
 <li>Oyunculara saygılı olun.</li>
@@ -69,22 +70,31 @@ footer a:hover { color:#ff4500; }
 <li>Yetkililerin talimatlarına uyun.</li>
 </ul>
 </div>
+</div>
 
-<div class="section stats">
-<h2>Sunucu İstatistikleri</h2>
-<div class="stats">
-<div class="stat-card">
-<h3>Aktif Oyuncular</h3>
-<p id="stat-player-count">0</p>
+<!-- Market Sayfası -->
+<div id="market-content">
+<button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
+<h2 style="color:#ffeb3b;">VIP Üyelikler</h2>
+<div class="market-card">
+<h3>Bronze VIP</h3>
+<p>+5% Özel Ödül, Küçük Paket</p>
+<button class="button">Satın Al</button>
 </div>
-<div class="stat-card">
-<h3>Sunucu Durumu</h3>
-<p id="stat-server-status">Bilinmiyor</p>
+<div class="market-card">
+<h3>Silver VIP</h3>
+<p>+10% Özel Ödül, Orta Paket</p>
+<button class="button">Satın Al</button>
 </div>
-<div class="stat-card">
-<h3>Toplam Girişler</h3>
-<p id="total-joins">0</p>
+<div class="market-card">
+<h3>Gold VIP</h3>
+<p>+20% Özel Ödül, Büyük Paket</p>
+<button class="button">Satın Al</button>
 </div>
+<div class="market-card">
+<h3>Platinum VIP</h3>
+<p>+50% Özel Ödül, En Büyük Paket</p>
+<button class="button">Satın Al</button>
 </div>
 </div>
 
@@ -94,29 +104,6 @@ footer a:hover { color:#ff4500; }
 <a href="https://github.com/ValoriaCraft770" target="_blank">GitHub</a>
 </footer>
 
-<div id="admin-panel">
-<h2>Admin Paneli</h2>
-<div class="admin-section">
-<label>Admin Şifresi:</label>
-<input type="password" id="admin-pass">
-<button onclick="loginAdmin()">Giriş Yap</button>
-</div>
-<div class="admin-section" id="admin-controls" style="display:none;">
-<h3>Kuralları Güncelle</h3>
-<textarea id="admin-rules"></textarea>
-<button onclick="updateRules()">Kaydet</button>
-
-<h3>Sunucu Buton Linkleri</h3>
-<label>Market:</label><input type="text" id="admin-market"><br>
-<label>Rehber Form:</label><input type="text" id="admin-form"><br>
-<label>YouTube:</label><input type="text" id="admin-youtube"><br>
-<label>GitHub:</label><input type="text" id="admin-github"><br>
-<button onclick="updateLinks()">Kaydet</button>
-
-<button onclick="closeAdminPanel()">Paneli Kapat</button>
-</div>
-</div>
-
 <script>
 // IP kopyalama
 function copyIP(){
@@ -124,55 +111,16 @@ function copyIP(){
     navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
 }
 
-// Admin Paneli
-const ADMIN_PASSWORD = "1234"; // Buraya kendi şifreni yaz
-function openAdminPanel(){
-    document.getElementById('admin-panel').style.display="block";
-}
-function closeAdminPanel(){
-    document.getElementById('admin-panel').style.display="none";
-}
-function loginAdmin(){
-    const pass = document.getElementById('admin-pass').value;
-    if(pass === ADMIN_PASSWORD){
-        document.getElementById('admin-controls').style.display="block";
-        alert("Giriş Başarılı!");
-    } else {
-        alert("Şifre yanlış!");
-    }
-}
-
-// Kuralları güncelle
-function updateRules(){
-    const text = document.getElementById('admin-rules').value;
-    const rulesList = document.getElementById('rules-list');
-    rulesList.innerHTML = "";
-    text.split("\n").forEach(rule=>{
-        if(rule.trim()!==""){
-            const li = document.createElement("li");
-            li.innerText = rule;
-            rulesList.appendChild(li);
-        }
-    });
-    localStorage.setItem("valoria-rules", text);
-}
-
-// Buton linklerini güncelle
-function updateLinks(){
-    document.getElementById('market-btn').href = document.getElementById('admin-market').value;
-    document.getElementById('form-btn').href = document.getElementById('admin-form').value;
-    document.getElementById('youtube-btn').href = document.getElementById('admin-youtube').value;
-    document.getElementById('github-btn').href = document.getElementById('admin-github').value;
-    alert("Linkler Güncellendi!");
-}
-
-// Kuralları localStorage'dan yükle
-window.onload = function(){
-    const savedRules = localStorage.getItem("valoria-rules");
-    if(savedRules){
-        document.getElementById('admin-rules').value = savedRules;
-        updateRules();
-    }
+// Ana Sayfa <-> Market geçiş
+const mainContent = document.getElementById('main-content');
+const marketContent = document.getElementById('market-content');
+document.getElementById('market-link').addEventListener('click', ()=>{
+    mainContent.style.display = 'none';
+    marketContent.style.display = 'block';
+});
+function showMain(){
+    marketContent.style.display = 'none';
+    mainContent.style.display = 'block';
 }
 
 // Canlı sunucu durumu ve oyuncu sayısı (mcstatus.io API)
@@ -184,22 +132,14 @@ async function fetchServerStatus(){
         const data = await response.json();
         const statusEl = document.getElementById('server-online-status');
         const playerEl = document.getElementById('player-count');
-        const statPlayerEl = document.getElementById('stat-player-count');
-        const statStatusEl = document.getElementById('stat-server-status');
         if(data.online){
             statusEl.innerText = 'Durum: Online';
             statusEl.style.color = '#00ff00';
             playerEl.innerText = data.players.online;
-            statPlayerEl.innerText = data.players.online;
-            statStatusEl.innerText = 'Online';
-            statStatusEl.style.color = '#00ff00';
         } else {
             statusEl.innerText = 'Durum: Offline';
             statusEl.style.color = '#ff0000';
             playerEl.innerText = '0';
-            statPlayerEl.innerText = '0';
-            statStatusEl.innerText = 'Offline';
-            statStatusEl.style.color = '#ff0000';
         }
     } catch(err){
         console.error('API Hatası:', err);
@@ -209,15 +149,6 @@ async function fetchServerStatus(){
 }
 fetchServerStatus();
 setInterval(fetchServerStatus, 30000);
-
-// Toplam giriş sayısı simülasyonu
-let totalJoins = localStorage.getItem("valoria-total-joins") || 0;
-document.getElementById("total-joins").innerText = totalJoins;
-document.getElementById("player-count").addEventListener("DOMSubtreeModified", ()=>{
-    totalJoins++;
-    localStorage.setItem("valoria-total-joins", totalJoins);
-    document.getElementById("total-joins").innerText = totalJoins;
-});
 </script>
 
 </body>
