@@ -14,21 +14,9 @@ body {
     text-align: center;
 }
 
-header {
-    padding: 60px 20px 30px 20px;
-}
-
-h1 {
-    font-size: 4em;
-    margin-bottom: 10px;
-    text-shadow: 3px 3px 5px #000;
-}
-
-p.subtitle {
-    font-size: 1.5em;
-    margin-bottom: 50px;
-    text-shadow: 1px 1px 2px #000;
-}
+header { padding: 60px 20px 30px 20px; }
+h1 { font-size: 4em; margin-bottom: 10px; text-shadow: 3px 3px 5px #000; }
+p.subtitle { font-size: 1.5em; margin-bottom: 50px; text-shadow: 1px 1px 2px #000; }
 
 .button {
     display: inline-block;
@@ -42,50 +30,26 @@ p.subtitle {
     transition: 0.3s;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
-.button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-}
+.button:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.5); }
 
-#server-ip {
-    font-weight: bold;
-    background: rgba(0,0,0,0.5);
-    padding: 5px 12px;
-    border-radius: 5px;
-    margin-right: 5px;
-}
+#server-ip { font-weight: bold; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 5px; margin-right: 5px; }
+button.copy-btn { padding:5px 12px; border:none; border-radius:5px; background:#ff7f50; color:#fff; cursor:pointer; transition:0.3s; }
+button.copy-btn:hover { background:#ff4500; }
 
-button.copy-btn {
-    padding: 5px 12px;
-    border: none;
-    border-radius: 5px;
-    background: #ff7f50;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.3s;
-}
-button.copy-btn:hover {
-    background: #ff4500;
-}
+#server-status { margin-top:40px; background: rgba(0,0,0,0.4); padding:25px 30px; border-radius:15px; display:inline-block; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
+#player-count { font-weight: bold; font-size:1.3em; }
 
-#server-status {
-    margin-top: 40px;
-    background: rgba(0,0,0,0.4);
-    padding: 25px 30px;
-    border-radius: 15px;
-    display: inline-block;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-}
+.section { margin:50px 20px; padding:20px; background: rgba(0,0,0,0.3); border-radius:15px; text-align:left; max-width:800px; margin-left:auto; margin-right:auto; }
+.section h2 { font-size:2em; margin-bottom:15px; text-align:center; text-shadow:2px 2px #000; }
+.section ul { list-style: disc inside; }
 
-#player-count {
-    font-weight: bold;
-    font-size: 1.3em;
-}
+.news-item { background: rgba(0,0,0,0.5); padding:15px; border-radius:10px; margin-bottom:15px; }
 
 @media(max-width:600px){
     h1 { font-size: 2.5em; }
-    p.subtitle { font-size: 1.2em; }
-    .button { padding: 10px 25px; margin: 10px; }
+    p.subtitle { font-size:1.2em; }
+    .button { padding:10px 25px; margin:10px; }
+    .section h2 { font-size:1.5em; }
 }
 </style>
 </head>
@@ -112,6 +76,26 @@ button.copy-btn:hover {
 </div>
 </header>
 
+<!-- Kurallar Bölümü -->
+<div class="section" id="rules">
+<h2>Kurallar</h2>
+<ul>
+<li>Küfür ve hakaret yasaktır.</li>
+<li>Hile yapmak yasaktır.</li>
+<li>Oyunculara saygılı olun.</li>
+<li>Reklam yapmak yasaktır.</li>
+<li>Yetkililerin talimatlarına uyun.</li>
+</ul>
+</div>
+
+<!-- Haberler Bölümü -->
+<div class="section" id="news">
+<h2>Haberler</h2>
+<div id="news-container">
+<!-- Haberler buraya eklenecek -->
+</div>
+</div>
+
 <script>
 // IP kopyalama
 function copyIP(){
@@ -123,10 +107,21 @@ function copyIP(){
 let playerCount = 5; // Manuel oyuncu sayısı
 document.getElementById('player-count').innerText = playerCount;
 
-let serverOnline = true; // true = online, false = offline
+let serverOnline = true; // true = Online, false = Offline
 document.getElementById('server-online-status').innerText = serverOnline ? "Durum: Online" : "Durum: Offline";
 
-// İstersen Aternos API ile gerçek zamanlı oyuncu sayısı çekebilirsin
+// Haber ekleme fonksiyonu
+function addNews(title, content){
+    const container = document.getElementById('news-container');
+    const newsDiv = document.createElement('div');
+    newsDiv.className = 'news-item';
+    newsDiv.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
+    container.prepend(newsDiv); // en üstte göster
+}
+
+// Örnek haberler (site sahibi bunları değiştirebilir)
+addNews("Sunucu Açıldı!", "Valoria Craft 1.20.1 sürümü ile sunucumuz aktif hale geldi!");
+addNews("Etkinlik Duyurusu", "Hafta sonu özel etkinlikler başlayacak! Kaçırmayın!");
 </script>
 
 </body>
