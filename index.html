@@ -23,13 +23,18 @@ button.copy-btn:hover { background:#ff4500; }
 .section h2 { font-size:2.5em; margin-bottom:20px; text-align:center; text-shadow:2px 2px #000; }
 .rules ul { list-style:disc inside; }
 .rules li { padding:8px 0; font-size:1.1em; }
-.events { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
-.event-card { background:rgba(0,0,0,0.5); padding:20px; border-radius:15px; width:220px; transition:0.3s; cursor:pointer; }
-.event-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5);}
+.stats { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.stat-card { background:rgba(0,0,0,0.5); padding:20px; border-radius:15px; width:220px; text-align:center; transition:0.3s; }
+.stat-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
 footer { text-align:center; padding:40px 20px; background:rgba(0,0,0,0.5); margin-top:50px; border-top:2px solid #ff7f50; }
 footer a { margin:0 10px; transition:0.3s; }
 footer a:hover { color:#ff4500; }
-@media(max-width:900px){ .events { flex-direction:column; align-items:center; } .event-card { width:80%; } }
+#admin-panel { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999; padding:50px; overflow-y:auto; }
+.admin-section { margin-bottom:40px; }
+.admin-section input, .admin-section textarea { width:100%; padding:10px; border-radius:8px; border:none; margin-top:5px; }
+.admin-section button { margin-top:10px; padding:10px 20px; border:none; border-radius:8px; background:#ff7f50; color:#fff; cursor:pointer; transition:0.3s; }
+.admin-section button:hover { background:#ff4500; }
+@media(max-width:900px){ .stats { flex-direction:column; align-items:center; } .stat-card { width:80%; } }
 @media(max-width:600px){ header h1 { font-size:2.5em; } header p.subtitle { font-size:1.2em; } .button { padding:10px 25px; margin:10px; } }
 </style>
 </head>
@@ -39,10 +44,10 @@ footer a:hover { color:#ff4500; }
 <h1>Valoria Craft</h1>
 <p class="subtitle">Minecraft Sunucusu - Sürüm 1.20.1</p>
 
-<a href="/ah" class="button">Market</a>
-<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
-<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
-<a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
+<a href="/ah" class="button" id="market-btn">Market</a>
+<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button" id="form-btn">Rehber Form</a>
+<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button" id="youtube-btn">YouTube Kanalımız</a>
+<a href="https://github.com/ValoriaCraft770" target="_blank" class="button" id="github-btn">GitHub Profili</a>
 
 <p style="margin-top:35px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
 <button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
@@ -51,11 +56,12 @@ footer a:hover { color:#ff4500; }
 <p>Şu anki oyuncu sayısı: <span id="player-count">0</span></p>
 <p id="server-online-status">Durum: Bilinmiyor</p>
 </div>
+<button class="button" onclick="openAdminPanel()">Admin Paneli Aç</button>
 </header>
 
 <div class="section rules">
 <h2>Kurallar</h2>
-<ul>
+<ul id="rules-list">
 <li>Küfür ve hakaret yasaktır.</li>
 <li>Hile yapmak yasaktır.</li>
 <li>Oyunculara saygılı olun.</li>
@@ -64,13 +70,21 @@ footer a:hover { color:#ff4500; }
 </ul>
 </div>
 
-<div class="section events">
-<h2>Etkinlikler & Modlar</h2>
-<div class="events">
-<div class="event-card">PvP Turnuvası</div>
-<div class="event-card">Özel Ödüllü Etkinlik</div>
-<div class="event-card">Mini Oyun Gecesi</div>
-<div class="event-card">Yeni Dünya Macerası</div>
+<div class="section stats">
+<h2>Sunucu İstatistikleri</h2>
+<div class="stats">
+<div class="stat-card">
+<h3>Aktif Oyuncular</h3>
+<p id="stat-player-count">0</p>
+</div>
+<div class="stat-card">
+<h3>Sunucu Durumu</h3>
+<p id="stat-server-status">Bilinmiyor</p>
+</div>
+<div class="stat-card">
+<h3>Toplam Girişler</h3>
+<p id="total-joins">0</p>
+</div>
 </div>
 </div>
 
@@ -80,6 +94,29 @@ footer a:hover { color:#ff4500; }
 <a href="https://github.com/ValoriaCraft770" target="_blank">GitHub</a>
 </footer>
 
+<div id="admin-panel">
+<h2>Admin Paneli</h2>
+<div class="admin-section">
+<label>Admin Şifresi:</label>
+<input type="password" id="admin-pass">
+<button onclick="loginAdmin()">Giriş Yap</button>
+</div>
+<div class="admin-section" id="admin-controls" style="display:none;">
+<h3>Kuralları Güncelle</h3>
+<textarea id="admin-rules"></textarea>
+<button onclick="updateRules()">Kaydet</button>
+
+<h3>Sunucu Buton Linkleri</h3>
+<label>Market:</label><input type="text" id="admin-market"><br>
+<label>Rehber Form:</label><input type="text" id="admin-form"><br>
+<label>YouTube:</label><input type="text" id="admin-youtube"><br>
+<label>GitHub:</label><input type="text" id="admin-github"><br>
+<button onclick="updateLinks()">Kaydet</button>
+
+<button onclick="closeAdminPanel()">Paneli Kapat</button>
+</div>
+</div>
+
 <script>
 // IP kopyalama
 function copyIP(){
@@ -87,26 +124,82 @@ function copyIP(){
     navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
 }
 
+// Admin Paneli
+const ADMIN_PASSWORD = "1234"; // Buraya kendi şifreni yaz
+function openAdminPanel(){
+    document.getElementById('admin-panel').style.display="block";
+}
+function closeAdminPanel(){
+    document.getElementById('admin-panel').style.display="none";
+}
+function loginAdmin(){
+    const pass = document.getElementById('admin-pass').value;
+    if(pass === ADMIN_PASSWORD){
+        document.getElementById('admin-controls').style.display="block";
+        alert("Giriş Başarılı!");
+    } else {
+        alert("Şifre yanlış!");
+    }
+}
+
+// Kuralları güncelle
+function updateRules(){
+    const text = document.getElementById('admin-rules').value;
+    const rulesList = document.getElementById('rules-list');
+    rulesList.innerHTML = "";
+    text.split("\n").forEach(rule=>{
+        if(rule.trim()!==""){
+            const li = document.createElement("li");
+            li.innerText = rule;
+            rulesList.appendChild(li);
+        }
+    });
+    localStorage.setItem("valoria-rules", text);
+}
+
+// Buton linklerini güncelle
+function updateLinks(){
+    document.getElementById('market-btn').href = document.getElementById('admin-market').value;
+    document.getElementById('form-btn').href = document.getElementById('admin-form').value;
+    document.getElementById('youtube-btn').href = document.getElementById('admin-youtube').value;
+    document.getElementById('github-btn').href = document.getElementById('admin-github').value;
+    alert("Linkler Güncellendi!");
+}
+
+// Kuralları localStorage'dan yükle
+window.onload = function(){
+    const savedRules = localStorage.getItem("valoria-rules");
+    if(savedRules){
+        document.getElementById('admin-rules').value = savedRules;
+        updateRules();
+    }
+}
+
 // Canlı sunucu durumu ve oyuncu sayısı (mcstatus.io API)
 const serverAddress = 'ValoriaCraft.aternos.me';
-
 async function fetchServerStatus(){
     try {
         const response = await fetch(`https://api.mcstatus.io/v2/status/java/${serverAddress}`);
         if (!response.ok) throw new Error('Sunucu bilgisi alınamadı');
         const data = await response.json();
-
         const statusEl = document.getElementById('server-online-status');
         const playerEl = document.getElementById('player-count');
-
+        const statPlayerEl = document.getElementById('stat-player-count');
+        const statStatusEl = document.getElementById('stat-server-status');
         if(data.online){
             statusEl.innerText = 'Durum: Online';
             statusEl.style.color = '#00ff00';
             playerEl.innerText = data.players.online;
+            statPlayerEl.innerText = data.players.online;
+            statStatusEl.innerText = 'Online';
+            statStatusEl.style.color = '#00ff00';
         } else {
             statusEl.innerText = 'Durum: Offline';
             statusEl.style.color = '#ff0000';
             playerEl.innerText = '0';
+            statPlayerEl.innerText = '0';
+            statStatusEl.innerText = 'Offline';
+            statStatusEl.style.color = '#ff0000';
         }
     } catch(err){
         console.error('API Hatası:', err);
@@ -114,10 +207,17 @@ async function fetchServerStatus(){
         document.getElementById('player-count').innerText = '-';
     }
 }
-
-// Başlangıçta ve her 30 saniyede bir güncelle
 fetchServerStatus();
 setInterval(fetchServerStatus, 30000);
+
+// Toplam giriş sayısı simülasyonu
+let totalJoins = localStorage.getItem("valoria-total-joins") || 0;
+document.getElementById("total-joins").innerText = totalJoins;
+document.getElementById("player-count").addEventListener("DOMSubtreeModified", ()=>{
+    totalJoins++;
+    localStorage.setItem("valoria-total-joins", totalJoins);
+    document.getElementById("total-joins").innerText = totalJoins;
+});
 </script>
 
 </body>
