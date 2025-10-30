@@ -1,14 +1,162 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valoria Craft</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Valoria Craft - BoxPvP Sunucusu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #05060a 0%, #0d1220 100%);
+      color: #eaeaea;
+    }
+    header {
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: 700; color: #6ee7b7; }
+    nav ul { list-style: none; display: flex; gap: 16px; margin: 0; padding: 0; }
+    nav a { color: #eaeaea; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #6ee7b7; }
+    .btn { background: #6ee7b7; color: #000; padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn:hover { opacity: 0.9; }
+    .hero { padding: 60px 20px; text-align: center; }
+    .hero h1 { font-size: 40px; color: #6ee7b7; margin-bottom: 10px; }
+    .hero p { max-width: 700px; margin: 0 auto 20px; color: #cbd5e1; }
+    .ip-box { background: rgba(255,255,255,0.05); display: inline-flex; align-items: center; padding: 10px 16px; border-radius: 8px; gap: 10px; }
+    .ip-text { font-weight: 700; font-size: 18px; }
+    .copy-btn { background: #6ee7b7; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    section { padding: 40px 20px; }
+    h2 { text-align: center; color: #6ee7b7; margin-bottom: 20px; }
+    .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .card h3 { color: #6ee7b7; }
+    footer { background: rgba(255,255,255,0.05); text-align: center; padding: 20px; margin-top: 40px; color: #94a3b8; font-size: 14px; }
+    .guide-link { text-align: center; margin-top: 20px; }
+    .guide-link a { color: #6ee7b7; text-decoration: underline; font-weight: 600; }
+  </style>
 </head>
 <body>
-    <h1>Valoria Craft</h1>
-    <p>Merhaba! Bu site GitHub Pages ile çalışıyor.</p>
-    <a href="https://www.youtube.com/@BeratSagirli" target="_blank">YouTube Kanalımız</a>
-    <a href="https://github.com/ValoriaCraft770" target="_blank">GitHub Profili</a>
+  <header>
+    <div class="container nav">
+      <div class="logo">Valoria Craft</div>
+      <nav>
+        <ul>
+          <li><a href="#rehber">Rehber</a></li>
+          <li><a href="#kurallar">Kurallar</a></li>
+          <li><a href="#youtube">YouTube</a></li>
+        </ul>
+      </nav>
+      <a href="#katil" class="btn">Sunucuya Katıl</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>⚔️ Valoria Craft</h1>
+    <p>Türkiye'nin en gelişmiş <strong>BoxPvP</strong> sunucusuna hoş geldin! Adil sistem, ödüller, etkinlikler ve rekabet seni bekliyor.</p>
+    <div class="ip-box">
+      <span class="ip-text" id="serverIP">valoriacraft.aternos.me</span>
+      <button class="copy-btn" onclick="copyIP()">Kopyala</button>
+    </div>
+    <p style="color:#94a3b8;margin-top:10px">Sürüm: 1.20.1</p>
+    <p id="status">Durum: kontrol ediliyor...</p>
+    <p id="players"></p>
+  </section>
+
+  <section id="rehber">
+    <h2>🎓 Rehber</h2>
+
+    <div class="card">
+      <h3>⚔️ Düello Sistemi</h3>
+      <p>Valoria Craft’ta bire bir savaş deneyimi seni bekliyor! Oyuncularla düello yap, becerini göster ve ödüller kazan.</p>
+      <ul>
+        <li>Komut: <strong>/duel &lt;oyuncu&gt;</strong></li>
+        <li>Kazananlara özel ödüller</li>
+        <li>Galibiyet / Kayıp istatistikleri</li>
+        <li>Adil PvP alanları</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>💰 AFK Bölgesi</h3>
+      <p>AFK kalarak kazanç elde et! Belirli süreler sonunda otomatik ödüller seni bekliyor.</p>
+      <ul>
+        <li>AFK bölgesine gir, süre dolunca ödül al</li>
+        <li>Süre ilerlemesini ekranda takip et</li>
+        <li>VIP oyunculara ekstra ödüller!</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🛒 Market Sistemi (/ah)</h3>
+      <p>Artık eşyalarını diğer oyuncularla takas edebilirsin! /ah komutu ile açık artırma sistemine katıl.</p>
+      <ul>
+        <li><strong>/ah</strong> komutu ile marketi aç</li>
+        <li>Kendi eşyalarını sat veya diğer oyuncuların eşyalarını satın al</li>
+        <li>Fiyat belirleme, süreli açık artırma sistemi</li>
+      </ul>
+    </div>
+
+    <div class="card" id="kurallar">
+      <h3>📜 Sunucu Kuralları</h3>
+      <ul>
+        <li>Küfür, hakaret, spam yasaktır.</li>
+        <li>Hile, makro veya avantaj sağlayan modlar yasaktır.</li>
+        <li>AFK ödül sistemini suistimal etmek yasaktır.</li>
+        <li>Saygılı ve adil oyun şarttır.</li>
+      </ul>
+    </div>
+
+    <div class="guide-link">
+      <a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank">📘 Rehber Formunu Aç</a>
+    </div>
+  </section>
+
+  <section id="youtube">
+    <h2>🎬 YouTube</h2>
+    <div style="text-align:center">
+      <p>Sunucunun tanıtım videolarını izlemek ve yeni gelişmelerden haberdar olmak için YouTube kanalımıza abone ol!</p>
+      <a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="btn">YouTube Kanalına Git</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Valoria Craft • BoxPvP Sunucusu • Sürüm 1.20.1</p>
+  </footer>
+
+  <script>
+    function copyIP(){
+      const ip = document.getElementById('serverIP').innerText;
+      navigator.clipboard.writeText(ip).then(()=>{ alert('IP kopyalandı: '+ip); });
+    }
+
+    async function updateServerStatus() {
+      const ip = "valoriacraft.aternos.me";
+      const statusEl = document.getElementById("status");
+      const playersEl = document.getElementById("players");
+
+      try {
+        const response = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
+        const data = await response.json();
+
+        if (data && data.online) {
+          statusEl.innerText = "🟢 Sunucu açık";
+          playersEl.innerText = `Oyuncular: ${data.players.online}/${data.players.max}`;
+        } else {
+          statusEl.innerText = "🔴 Sunucu kapalı";
+          playersEl.innerText = "";
+        }
+      } catch (err) {
+        statusEl.innerText = "⚠️ Durum alınamadı";
+        playersEl.innerText = "";
+      }
+    }
+
+    updateServerStatus();
+    setInterval(updateServerStatus, 60000);
+  </script>
 </body>
 </html>
