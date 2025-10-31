@@ -1,200 +1,157 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valoria Craft 1.20.1</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<!-- 💎 VALORIACRAFT MARKET (EMOJİSİZ & SATIN ALMASIZ SÜRÜM) -->
+<div id="market-content" 
+     style="display:none; padding:40px 20px; text-align:center; min-height:100vh;
+            background:linear-gradient(135deg, #1b1b33, #2a2a6e); position:relative;
+            color:#fff; font-family:'Poppins', sans-serif; overflow-x:hidden;">
+
+  <!-- 🔙 Geri Dön Butonu -->
+  <button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
+
+  <h1 style="color:#ffeb3b; font-size:2.5em; margin-top:20px;">Market</h1>
+  <p style="opacity:0.8;">VIP Üyelikleri & Kasa Anahtarlarını buradan inceleyebilirsiniz.</p>
+
+  <!-- 🧭 Menü Seçimi -->
+  <div style="margin:30px 0;">
+    <button class="button" onclick="showVIP()" id="vip-btn">VIP Üyelikler</button>
+    <button class="button" onclick="showCrates()" id="crate-btn">Kasa Anahtarları</button>
+  </div>
+
+  <!-- 🎟️ VIP Üyelikler -->
+  <div id="vip-section" style="display:block; animation:fadeIn 0.6s;">
+    <h3 style="margin-bottom:15px; color:#ffd54f;">Tüm VIP’ler 30 Günlüktür.</h3>
+    <div class="market-grid">
+      <div class="market-card">
+        <h3>VIP</h3>
+        <ul>
+          <li>VIP Tagı</li>
+          <li>/pv Komutuyla 1 Ekstra Depo</li>
+          <li>VIP Kit Erişimi</li>
+          <li>1000 Para</li>
+          <li>2 Günlük Kasa Anahtarı</li>
+        </ul>
+        <div class="price">20 TL</div>
+      </div>
+
+      <div class="market-card">
+        <h3>VIP+</h3>
+        <ul>
+          <li>VIP+ Tagı</li>
+          <li>2 Ekstra Depo</li>
+          <li>VIP+ Kit Erişimi</li>
+          <li>2500 Para</li>
+          <li>3 Günlük Kasa Anahtarı</li>
+        </ul>
+        <div class="price">35 TL</div>
+      </div>
+
+      <div class="market-card">
+        <h3>MVIP</h3>
+        <ul>
+          <li>MVIP Tagı</li>
+          <li>3 Ekstra Depo</li>
+          <li>MVIP Kit Erişimi</li>
+          <li>5000 Para</li>
+          <li>3 Günlük Kasa Anahtarı</li>
+          <li>1 Event Kasası Anahtarı</li>
+        </ul>
+        <div class="price">50 TL</div>
+      </div>
+
+      <div class="market-card">
+        <h3>ValoriaCraft VIP</h3>
+        <ul>
+          <li>VCVIP Tagı</li>
+          <li>5 Ekstra Depo</li>
+          <li>ValoriaCraft VIP Kit Erişimi</li>
+          <li>10.000 Para</li>
+          <li>5 Günlük Kasa Anahtarı</li>
+          <li>2 Event Kasası Anahtarı</li>
+        </ul>
+        <div class="price">75 TL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔐 Kasalar -->
+  <div id="crates-section" style="display:none; animation:fadeIn 0.6s;">
+    <div class="market-grid">
+      <div class="market-card">
+        <h3>Valoria Kasası Anahtarı</h3>
+        <ul>
+          <li>En değerli kasa anahtarı</li>
+          <li>Yüksek drop şansı içerir</li>
+        </ul>
+        <div class="price">40 TL</div>
+      </div>
+
+      <div class="market-card">
+        <h3>Kit Kasası Anahtarı</h3>
+        <ul>
+          <li>Kit kazanma şansı verir</li>
+          <li>En nadir kasa türüdür</li>
+        </ul>
+        <div class="price">75 TL</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
-:root {
-    --primary:#ff7f50;
-    --secondary:#ff4500;
-    --bg:#1a1a2e;
-    --text:#fff;
-}
-body {
-    margin:0;
-    padding:0;
-    font-family:'Roboto',sans-serif;
-    background:var(--bg);
-    color:var(--text);
+  .button {
+    background: #ffeb3b;
+    color: #000;
+    border:none;
+    padding:10px 20px;
+    margin:5px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
     transition:0.3s;
-}
-a { text-decoration:none; color:inherit; }
-header { text-align:center; padding:60px 20px; background:url('https://i.imgur.com/JuHE3Av.png') center/cover no-repeat; position:relative; }
-header h1 { font-size:3.5em; text-shadow:4px 4px 10px #000; margin-bottom:10px; }
-header p.subtitle { font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px #000; }
-.button { display:inline-block; margin:10px; padding:12px 30px; background:linear-gradient(45deg,var(--primary),var(--secondary)); border-radius:12px; font-weight:bold; transition:0.3s; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
-.button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5);}
-#server-ip { font-weight:bold; background:rgba(0,0,0,0.5); padding:5px 12px; border-radius:5px; margin-right:5px; }
-button.copy-btn { padding:5px 12px; border:none; border-radius:5px; background:var(--primary); color:#fff; cursor:pointer; transition:0.3s; }
-button.copy-btn:hover { background:var(--secondary); }
-#server-status { margin-top:25px; background:rgba(0,0,0,0.4); padding:20px 25px; border-radius:15px; display:inline-block; box-shadow:0 5px 15px rgba(0,0,0,0.4); }
-#player-count { font-weight:bold; font-size:1.2em; }
-.section { margin:40px 20px; padding:25px; background:rgba(0,0,0,0.3); border-radius:20px; max-width:1000px; margin-left:auto; margin-right:auto; text-align:left; }
-.section h2 { font-size:2em; margin-bottom:15px; text-align:center; text-shadow:2px 2px #000; }
-.rules ul { list-style:disc inside; }
-.rules li { padding:6px 0; font-size:1em; }
-#market-content { display:none; padding:40px 20px; text-align:center; min-height:70vh; background:url('https://i.ibb.co/XCzH0yw/vip-bg.jpg') center/cover no-repeat; position:relative; }
-.market-card { background:rgba(0,0,0,0.6); border-radius:15px; display:inline-block; margin:15px; padding:20px; width:220px; transition:0.3s; cursor:pointer; vertical-align:top; }
-.market-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
-.market-card h3 { margin-bottom:10px; }
-.market-card p { font-size:0.9em; margin-bottom:10px; }
-footer { text-align:center; padding:30px 20px; background:rgba(0,0,0,0.5); margin-top:40px; border-top:2px solid var(--primary); }
-footer a { margin:0 10px; transition:0.3s; }
-footer a:hover { color:var(--secondary); }
-.dark-mode { --bg:#121212; --text:#f5f5f5; --primary:#00b894; --secondary:#00cec9; }
-@media(max-width:900px){ .market-card { width:80%; } }
+  }
+  .button:hover { background:#fff176; transform:scale(1.05); }
+
+  .market-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+  }
+  .market-card {
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
+    transition:0.3s;
+  }
+  .market-card:hover { transform:translateY(-5px); background:rgba(255,255,255,0.15); }
+  .market-card h3 { color:#ffeb3b; margin-bottom:10px; font-size:1.3em; }
+  .market-card ul { list-style:none; padding:0; line-height:1.6; text-align:left; }
+  .market-card li::before { content:"• "; color:#ffd54f; }
+  .price {
+    margin-top:15px;
+    background:#ffeb3b;
+    color:#000;
+    font-weight:bold;
+    padding:8px 15px;
+    border-radius:8px;
+    display:inline-block;
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+  }
 </style>
-</head>
-<body>
-
-<!-- Ana Sayfa -->
-<div id="main-content">
-<header>
-<h1>Valoria Craft</h1>
-<p class="subtitle">Minecraft BoxPvP Sunucusu - Sürüm 1.20.1</p>
-
-<a href="#" class="button" id="market-link">Market</a>
-<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
-<a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
-<a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
-<button class="button" onclick="toggleDarkMode()">Karanlık Mod</button>
-
-<p style="margin-top:25px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
-<button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
-
-<div id="server-status">
-<p>Şu anki oyuncu sayısı: <span id="player-count">0</span></p>
-<p id="server-online-status">Durum: Bilinmiyor</p>
-</div>
-</header>
-
-<div class="section rules">
-<h2>Kurallar</h2>
-<ul>
-<li>Küfür ve hakaret yasaktır.</li>
-<li>Hile yapmak yasaktır.</li>
-<li>Oyunculara saygılı olun.</li>
-<li>Reklam yapmak yasaktır.</li>
-<li>Yetkililere Saygılı Olun.</li>
-</ul>
-</div>
-</div>
-
-<!-- Market Sayfası -->
-<div id="market-content">
-<button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
-<h2 style="color:#ffeb3b;">Market</h2>
-
-<!-- Menü Seçimi -->
-<div style="margin:20px 0;">
-  <button class="button" onclick="showVIP()">VIP Üyelikler</button>
-  <button class="button" onclick="showCrates()">Kasa Anahtarları</button>
-</div>
-
-<!-- VIP Üyelikler -->
-<div id="vip-section" style="display:block;">
-<p style="font-weight:bold; margin-bottom:20px;">Bütün VIPler 30 Günlüktür.</p>
-<div class="market-card">
-<h3>VIP</h3>
-<p>Sunucuda VIP Tagı</p>
-<p>Daha Fazla Depo /pv</p>
-<p>VIP Kite Erişim</p>
-<p>1000 Para</p>
-<p>1 Adet Günlük Kasası Anahtarı</p>
-<button class="button">20TL</button>
-</div>
-<div class="market-card">
-<h3>VIP+</h3>
-<p>Sunucuda VIP+ Tagı</p>
-<p>Daha Fazla Depo /pv</p>
-<p>VIP+ Kite Erişim</p>
-<p>2500 Para</p>
-<p>2 Adet Günlük Kasası Anahtarı</p>
-<button class="button">35TL</button>
-</div>
-<div class="market-card">
-<h3>MVIP</h3>
-<p>Sunucuda MVIP Tagı</p>
-<p>Daha Fazla Depo /pv</p>
-<p>MVIP Kite Erişim</p>
-<p>5000 Para</p>
-<p>3 Adet Günlük Kasası Anahtarı</p>
-<p>1 Adet Event Kasası Anahtarı</p>
-<button class="button">50TL</button>
-</div>
-<div class="market-card">
-<h3>ValoriaCraft VIP</h3>
-<p>Sunucuda VCVIP Tagı</p>
-<p>Daha Fazla Depo /pv</p>
-<p>VCVIP Kit Erişim</p>
-<p>10.000 Para</p>
-<p>5 Adet Günlük Kasası Anahtarı</p>
-<p>2 Adet Event Kasası Anahtarı</p>
-<button class="button">75TL</button>
-</div>
-</div>
-
-<!-- Kasalar -->
-<div id="crates-section" style="display:none;">
-<div class="market-card">
-<h3>Valoria Kasası Anahtarı</h3>
-<p>Neredeyse En Değerli Kasa Anahtarı!</p>
-<button class="button">40TL</button>
-</div>
-<div class="market-card">
-<h3>Kit Kasası Anahtarı</h3>
-<p>Kitleri Almak İçin Bir Kasa!</p>
-<p>En Değerli Kasa Anahtarıdır.</p>
-<button class="button">75TL</button>
-</div>
-</div>
-</div>
-
-<footer>
-<p>&copy; 2025 Valoria Craft | Tüm Hakları Saklıdır</p>
-<a href="https://www.youtube.com/@BeratSagirli" target="_blank">YouTube</a>
-<a href="https://github.com/ValoriaCraft770" target="_blank">GitHub</a>
-<a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank">Kılavuz</a>
-</footer>
 
 <script>
-// IP kopyalama
-function copyIP(){
-const ip = document.getElementById('server-ip').innerText;
-navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
-}
+  function showVIP() {
+    document.getElementById('vip-section').style.display = 'block';
+    document.getElementById('crates-section').style.display = 'none';
+  }
 
-// Ana Sayfa <-> Market geçiş
-const mainContent = document.getElementById('main-content');
-const marketContent = document.getElementById('market-content');
-document.getElementById('market-link').addEventListener('click', ()=>{
-mainContent.style.display='none';
-marketContent.style.display='block';
-});
-function showMain(){ marketContent.style.display='none'; mainContent.style.display='block'; }
-function showVIP(){ document.getElementById('vip-section').style.display='block'; document.getElementById('crates-section').style.display='none'; }
-function showCrates(){ document.getElementById('vip-section').style.display='none'; document.getElementById('crates-section').style.display='block'; }
-
-// Canlı sunucu durumu
-const serverAddress='ValoriaCraft.aternos.me';
-async function fetchServerStatus(){
-try{
-const response=await fetch(`https://api.mcstatus.io/v2/status/java/${serverAddress}`);
-if(!response.ok)throw new Error('Sunucu bilgisi alınamadı');
-const data=await response.json();
-const statusEl=document.getElementById('server-online-status');
-const playerEl=document.getElementById('player-count');
-if(data.online){ statusEl.innerText='Durum: Online'; statusEl.style.color='#00ff00'; playerEl.innerText=data.players.online; }
-else{ statusEl.innerText='Durum: Offline'; statusEl.style.color='#ff0000'; playerEl.innerText='0'; }
-}catch(err){ console.error(err); document.getElementById('server-online-status').innerText='Durum: Bilinmiyor'; document.getElementById('player-count').innerText='-'; }
-}
-fetchServerStatus(); setInterval(fetchServerStatus,30000);
-
-// Karanlık Mod
-function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); }
+  function showCrates() {
+    document.getElementById('vip-section').style.display = 'none';
+    document.getElementById('crates-section').style.display = 'block';
+  }
 </script>
-
-</body>
-</html>
