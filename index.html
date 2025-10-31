@@ -1,4 +1,4 @@
-<!-- Skorboard ve Kılavuz Bölümü -->
+<!-- Skorboard Bölümü -->
 <div class="section" id="scoreboard-section" style="background:rgba(0,0,0,0.4);">
   <h2>Skorboard</h2>
   <table id="scoreboard">
@@ -8,19 +8,8 @@
         <th>Toplam Kredi</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>Player1</td>
-        <td>50</td>
-      </tr>
-      <tr>
-        <td>Player2</td>
-        <td>30</td>
-      </tr>
-      <tr>
-        <td>Player3</td>
-        <td>10</td>
-      </tr>
+    <tbody id="scoreboard-body">
+      <tr><td colspan="2">Yükleniyor...</td></tr>
     </tbody>
   </table>
 
@@ -36,11 +25,43 @@
       <li>Reklam yapmak yasaktır.</li>
       <li>Yetkililere saygılı olun.</li>
     </ul>
-    <p><strong>Kasalar ve Ödüller:</strong> Günlük kasalar ve event kasaları ile farklı ödüller kazanabilirsiniz. VIP ayrıcalıkları bu kılavuzda gösterilmez.</p>
+    <p><strong>Kasalar ve Ödüller:</strong> Günlük kasalar ve event kasaları ile farklı ödüller kazanabilirsiniz.</p>
     <p><strong>İpuçları:</strong> Düzenli olarak kasaları açın ve sunucuda aktif olun, kredilerinizi artırın.</p>
     <button class="button" onclick="closeGuide()">Kapat</button>
   </div>
 </div>
+
+<script>
+// JSON dosyasından oyuncu verilerini çek
+async function loadScoreboard() {
+  const tbody = document.getElementById('scoreboard-body');
+  tbody.innerHTML = '<tr><td colspan="2">Yükleniyor...</td></tr>';
+  try {
+    const response = await fetch('data.json');
+    const players = await response.json();
+    tbody.innerHTML = '';
+    players.forEach(p => {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${p.name}</td><td>${p.credit}</td>`;
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="2">Veri yüklenemedi</td></tr>';
+    console.error('Veri hatası:', err);
+  }
+}
+
+// Kılavuz paneli aç/kapat
+document.getElementById('guide-btn').addEventListener('click', ()=>{
+  document.getElementById('guide-panel').style.display='block';
+});
+function closeGuide(){
+  document.getElementById('guide-panel').style.display='none';
+}
+
+// Sayfa açıldığında skorboard'u yükle
+loadScoreboard();
+</script>
 
 <style>
 #scoreboard {
@@ -64,12 +85,3 @@
   transition:0.3s;
 }
 </style>
-
-<script>
-document.getElementById('guide-btn').addEventListener('click', ()=>{
-  document.getElementById('guide-panel').style.display='block';
-});
-function closeGuide(){
-  document.getElementById('guide-panel').style.display='none';
-}
-</script>
