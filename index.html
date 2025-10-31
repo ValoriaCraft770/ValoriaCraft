@@ -1,157 +1,156 @@
-<!-- 💎 VALORIACRAFT MARKET (EMOJİSİZ & SATIN ALMASIZ SÜRÜM) -->
-<div id="market-content" 
-     style="display:none; padding:40px 20px; text-align:center; min-height:100vh;
-            background:linear-gradient(135deg, #1b1b33, #2a2a6e); position:relative;
-            color:#fff; font-family:'Poppins', sans-serif; overflow-x:hidden;">
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ValoriaCraft Market</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1b1b2f, #162447);
+      color: #fff;
+      text-align: center;
+    }
 
-  <!-- 🔙 Geri Dön Butonu -->
-  <button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
+    header {
+      background: #111;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #ffeb3b;
+    }
 
-  <h1 style="color:#ffeb3b; font-size:2.5em; margin-top:20px;">Market</h1>
-  <p style="opacity:0.8;">VIP Üyelikleri & Kasa Anahtarlarını buradan inceleyebilirsiniz.</p>
+    .button {
+      background: #ffeb3b;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-  <!-- 🧭 Menü Seçimi -->
-  <div style="margin:30px 0;">
-    <button class="button" onclick="showVIP()" id="vip-btn">VIP Üyelikler</button>
-    <button class="button" onclick="showCrates()" id="crate-btn">Kasa Anahtarları</button>
-  </div>
+    .button:hover {
+      background: #fdd835;
+      transform: scale(1.05);
+    }
 
-  <!-- 🎟️ VIP Üyelikler -->
-  <div id="vip-section" style="display:block; animation:fadeIn 0.6s;">
-    <h3 style="margin-bottom:15px; color:#ffd54f;">Tüm VIP’ler 30 Günlüktür.</h3>
-    <div class="market-grid">
+    .market-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px;
+      width: 260px;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+    }
+
+    .market-card:hover {
+      transform: scale(1.03);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    #market-content {
+      padding: 40px 20px;
+      min-height: 80vh;
+    }
+
+    h2, h3 {
+      margin: 10px 0;
+      color: #ffeb3b;
+    }
+
+    footer {
+      background: #111;
+      padding: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>ValoriaCraft Market</header>
+
+  <div id="market-content">
+    <div style="margin-bottom:20px;">
+      <button class="button" onclick="showVIP()">VIP Üyelikler</button>
+      <button class="button" onclick="showCrates()">Kasa Anahtarları</button>
+    </div>
+
+    <!-- VIP Üyelikler -->
+    <div id="vip-section">
+      <h2>Bütün VIP’ler 30 Günlüktür</h2>
       <div class="market-card">
         <h3>VIP</h3>
-        <ul>
-          <li>VIP Tagı</li>
-          <li>/pv Komutuyla 1 Ekstra Depo</li>
-          <li>VIP Kit Erişimi</li>
-          <li>1000 Para</li>
-          <li>2 Günlük Kasa Anahtarı</li>
-        </ul>
-        <div class="price">20 TL</div>
+        <p>• VIP Tagı</p>
+        <p>• /pv Komutuyla 1 Ekstra Depo</p>
+        <p>• VIP Kit Erişimi</p>
+        <p>• 1000 Para</p>
+        <p>Fiyat: 20 TL</p>
       </div>
-
       <div class="market-card">
         <h3>VIP+</h3>
-        <ul>
-          <li>VIP+ Tagı</li>
-          <li>2 Ekstra Depo</li>
-          <li>VIP+ Kit Erişimi</li>
-          <li>2500 Para</li>
-          <li>3 Günlük Kasa Anahtarı</li>
-        </ul>
-        <div class="price">35 TL</div>
+        <p>• VIP+ Tagı</p>
+        <p>• 2 Ekstra Depo</p>
+        <p>• VIP+ Kit Erişimi</p>
+        <p>• 2500 Para</p>
+        <p>• 2 Günlük Kasa Anahtarı</p>
+        <p>Fiyat: 35 TL</p>
       </div>
-
       <div class="market-card">
         <h3>MVIP</h3>
-        <ul>
-          <li>MVIP Tagı</li>
-          <li>3 Ekstra Depo</li>
-          <li>MVIP Kit Erişimi</li>
-          <li>5000 Para</li>
-          <li>3 Günlük Kasa Anahtarı</li>
-          <li>1 Event Kasası Anahtarı</li>
-        </ul>
-        <div class="price">50 TL</div>
+        <p>• MVIP Tagı</p>
+        <p>• 3 Ekstra Depo</p>
+        <p>• MVIP Kit Erişimi</p>
+        <p>• 5000 Para</p>
+        <p>• 3 Günlük Kasa Anahtarı</p>
+        <p>• 1 Event Kasası Anahtarı</p>
+        <p>Fiyat: 50 TL</p>
       </div>
-
       <div class="market-card">
         <h3>ValoriaCraft VIP</h3>
-        <ul>
-          <li>VCVIP Tagı</li>
-          <li>5 Ekstra Depo</li>
-          <li>ValoriaCraft VIP Kit Erişimi</li>
-          <li>10.000 Para</li>
-          <li>5 Günlük Kasa Anahtarı</li>
-          <li>2 Event Kasası Anahtarı</li>
-        </ul>
-        <div class="price">75 TL</div>
+        <p>• VCVIP Tagı</p>
+        <p>• 5 Ekstra Depo</p>
+        <p>• ValoriaCraft VIP Kit Erişimi</p>
+        <p>• 10.000 Para</p>
+        <p>• 5 Günlük Kasası Anahtarı</p>
+        <p>• 2 Event Kasası Anahtarı</p>
+        <p>Fiyat: 75 TL</p>
       </div>
     </div>
-  </div>
 
-  <!-- 🔐 Kasalar -->
-  <div id="crates-section" style="display:none; animation:fadeIn 0.6s;">
-    <div class="market-grid">
+    <!-- Kasalar -->
+    <div id="crates-section" style="display:none;">
       <div class="market-card">
         <h3>Valoria Kasası Anahtarı</h3>
-        <ul>
-          <li>En değerli kasa anahtarı</li>
-          <li>Yüksek drop şansı içerir</li>
-        </ul>
-        <div class="price">40 TL</div>
+        <p>• En değerli kasa anahtarlarından biridir.</p>
+        <p>Fiyat: 40 TL</p>
       </div>
-
       <div class="market-card">
         <h3>Kit Kasası Anahtarı</h3>
-        <ul>
-          <li>Kit kazanma şansı verir</li>
-          <li>En nadir kasa türüdür</li>
-        </ul>
-        <div class="price">75 TL</div>
+        <p>• Kit kazanma şansı verir.</p>
+        <p>• En nadir kasa türüdür.</p>
+        <p>Fiyat: 75 TL</p>
       </div>
     </div>
   </div>
-</div>
 
-<style>
-  .button {
-    background: #ffeb3b;
-    color: #000;
-    border:none;
-    padding:10px 20px;
-    margin:5px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:0.3s;
-  }
-  .button:hover { background:#fff176; transform:scale(1.05); }
+  <footer>© 2025 ValoriaCraft | Tüm hakları saklıdır.</footer>
 
-  .market-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-    gap:20px;
-    padding:20px;
-  }
-  .market-card {
-    background:rgba(255,255,255,0.1);
-    border:1px solid rgba(255,255,255,0.2);
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-    transition:0.3s;
-  }
-  .market-card:hover { transform:translateY(-5px); background:rgba(255,255,255,0.15); }
-  .market-card h3 { color:#ffeb3b; margin-bottom:10px; font-size:1.3em; }
-  .market-card ul { list-style:none; padding:0; line-height:1.6; text-align:left; }
-  .market-card li::before { content:"• "; color:#ffd54f; }
-  .price {
-    margin-top:15px;
-    background:#ffeb3b;
-    color:#000;
-    font-weight:bold;
-    padding:8px 15px;
-    border-radius:8px;
-    display:inline-block;
-  }
+  <script>
+    function showVIP() {
+      document.getElementById("vip-section").style.display = "block";
+      document.getElementById("crates-section").style.display = "none";
+    }
 
-  @keyframes fadeIn {
-    from {opacity:0; transform:translateY(20px);}
-    to {opacity:1; transform:translateY(0);}
-  }
-</style>
-
-<script>
-  function showVIP() {
-    document.getElementById('vip-section').style.display = 'block';
-    document.getElementById('crates-section').style.display = 'none';
-  }
-
-  function showCrates() {
-    document.getElementById('vip-section').style.display = 'none';
-    document.getElementById('crates-section').style.display = 'block';
-  }
-</script>
+    function showCrates() {
+      document.getElementById("vip-section").style.display = "none";
+      document.getElementById("crates-section").style.display = "block";
+    }
+  </script>
+</body>
+</html>
