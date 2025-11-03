@@ -25,6 +25,7 @@ header p.subtitle { font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px
   font-weight:bold;
   transition:0.3s;
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  text-align:center;
 }
 .button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5); }
 
@@ -72,17 +73,14 @@ button.copy-btn:hover { background:#ff4500; }
   text-align:center;
   text-shadow:2px 2px #000;
 }
+.section ul { margin-top:10px; list-style:disc inside; }
+.section ul li { margin-bottom:8px; }
 
-#latest-joins ul {
-  list-style:none;
-  text-align:center;
-  padding:0;
-}
 #latest-joins li {
   opacity:0;
   transform:translateY(30px);
   animation:slideFade 0.8s forwards;
-  margin:6px 0;
+  margin-bottom:6px;
 }
 #latest-joins li:nth-child(1){ animation-delay:0.2s; }
 #latest-joins li:nth-child(2){ animation-delay:0.4s; }
@@ -106,14 +104,8 @@ button.copy-btn:hover { background:#ff4500; }
   text-align:left;
 }
 .market-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
-
-.market-card ul {
-  list-style: disc inside;
-  margin-top:10px;
-}
-.market-card ul li {
-  margin-bottom:6px;
-}
+.market-card ul { list-style:disc inside; margin-top:10px; }
+.market-card ul li { margin-bottom:6px; }
 
 footer {
   text-align:center;
@@ -162,7 +154,6 @@ footer a:hover { color:#ff4500; }
 
 <div class="section" id="latest-joins">
   <h2>Son Kayıtlar</h2>
-  <p style="text-align:center; margin-bottom:15px;">Sunucumuza en son katılan oyuncular:</p>
   <ul>
     <li><strong>BeratSagirli</strong></li>
     <li><strong>ValoriaCraftTR</strong></li>
