@@ -13,9 +13,11 @@ body {
   color:#fff;
 }
 a { text-decoration:none; color:inherit; }
+
 header { text-align:center; padding:60px 20px; }
 header h1 { font-size:3.5em; text-shadow:4px 4px 10px #000; margin-bottom:10px; }
 header p.subtitle { font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px #000; }
+
 .button {
   display:inline-block;
   margin:10px;
@@ -25,7 +27,7 @@ header p.subtitle { font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px
   font-weight:bold;
   transition:0.3s;
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  text-align:center;
+  cursor:pointer;
 }
 .button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5); }
 
@@ -73,26 +75,26 @@ button.copy-btn:hover { background:#ff4500; }
   text-align:center;
   text-shadow:2px 2px #000;
 }
-.section ul { margin-top:10px; list-style:disc inside; }
-.section ul li { margin-bottom:8px; }
 
+#latest-joins ul {
+  list-style:none;
+  text-align:center;
+  padding:0;
+}
 #latest-joins li {
   opacity:0;
   transform:translateY(30px);
   animation:slideFade 0.8s forwards;
-  margin-bottom:6px;
+  margin:6px 0;
 }
 #latest-joins li:nth-child(1){ animation-delay:0.2s; }
 #latest-joins li:nth-child(2){ animation-delay:0.4s; }
 #latest-joins li:nth-child(3){ animation-delay:0.6s; }
 #latest-joins li:nth-child(4){ animation-delay:0.8s; }
 #latest-joins li:nth-child(5){ animation-delay:1s; }
+@keyframes slideFade { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 
-@keyframes slideFade {
-  from { opacity:0; transform:translateY(30px); }
-  to { opacity:1; transform:translateY(0); }
-}
-
+/* Market Kart Tasarımı */
 .market-card {
   background:rgba(0,0,0,0.6);
   border-radius:15px;
@@ -104,8 +106,18 @@ button.copy-btn:hover { background:#ff4500; }
   text-align:left;
 }
 .market-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
-.market-card ul { list-style:disc inside; margin-top:10px; }
-.market-card ul li { margin-bottom:6px; }
+
+/* Market Kart İçerik Düzgün Satır */
+.market-card ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.market-card ul li {
+  display:block;
+  margin-bottom:8px;
+  line-height:1.5;
+}
 
 footer {
   text-align:center;
@@ -127,6 +139,7 @@ footer a:hover { color:#ff4500; }
 <header>
   <h1>Valoria Craft</h1>
   <p class="subtitle">Minecraft BoxPvP Sunucusu - Sürüm 1.20.1</p>
+
   <a href="#" class="button" id="market-link">Market</a>
   <a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
   <a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
@@ -174,10 +187,9 @@ background:linear-gradient(135deg, #202040, #2a2a6e); position:relative;">
     <button class="button" onclick="showCrates()">Kasa Anahtarları</button>
   </div>
 
-  <!-- VIP -->
+  <!-- VIP Üyelikler -->
   <div id="vip-section" style="display:block;">
     <h3 style="margin-bottom:15px;">Bütün VIP’ler 30 Günlüktür.</h3>
-
     <div class="market-card">
       <h3>VIP</h3>
       <ul>
@@ -188,7 +200,6 @@ background:linear-gradient(135deg, #202040, #2a2a6e); position:relative;">
       </ul>
       <button class="button">20 TL</button>
     </div>
-
     <div class="market-card">
       <h3>VIP+</h3>
       <ul>
@@ -200,7 +211,6 @@ background:linear-gradient(135deg, #202040, #2a2a6e); position:relative;">
       </ul>
       <button class="button">35 TL</button>
     </div>
-
     <div class="market-card">
       <h3>MVIP</h3>
       <ul>
@@ -213,7 +223,6 @@ background:linear-gradient(135deg, #202040, #2a2a6e); position:relative;">
       </ul>
       <button class="button">50 TL</button>
     </div>
-
     <div class="market-card">
       <h3>ValoriaCraft VIP</h3>
       <ul>
@@ -261,22 +270,20 @@ function copyIP(){
 }
 
 const mainContent = document.querySelector('header');
-const rulesContent = document.querySelector('.rules');
-const latestContent = document.getElementById('latest-joins');
 const marketContent = document.getElementById('market-content');
 
 document.getElementById('market-link').addEventListener('click', ()=>{
   mainContent.style.display='none';
-  rulesContent.style.display='none';
-  latestContent.style.display='none';
+  document.querySelector('.rules').style.display='none';
+  document.getElementById('latest-joins').style.display='none';
   marketContent.style.display='block';
 });
 
 function showMain(){
   marketContent.style.display='none';
   mainContent.style.display='block';
-  rulesContent.style.display='block';
-  latestContent.style.display='block';
+  document.querySelector('.rules').style.display='block';
+  document.getElementById('latest-joins').style.display='block';
 }
 
 function showVIP(){
@@ -288,7 +295,7 @@ function showCrates(){
   document.getElementById('crates-section').style.display='block';
 }
 
-// Sunucu Durumu
+// Sunucu durumu
 const serverAddress = 'ValoriaCraft.aternos.me';
 async function fetchServerStatus(){
   try {
