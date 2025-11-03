@@ -1,291 +1,249 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valoria Craft 1.20.1</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:'Roboto', sans-serif;
-  background: linear-gradient(135deg,#1a1a2e,#3a3a6e);
-  color:#fff;
-}
-a { text-decoration:none; color:inherit; }
-header { text-align:center; padding:60px 20px; }
-header h1 { font-size:3.5em; text-shadow:4px 4px 10px #000; margin-bottom:10px; }
-header p.subtitle { font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px #000; }
-.button {
-  display:inline-block;
-  margin:10px;
-  padding:12px 30px;
-  background:linear-gradient(45deg,#ff7f50,#ff4500);
-  border-radius:12px;
-  font-weight:bold;
-  transition:0.3s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-.button:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.5); }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ValoriaCraft | Minecraft Sunucusu</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: #12122b;
+      color: white;
+      overflow-x: hidden;
+    }
 
-#server-ip {
-  font-weight:bold;
-  background:rgba(0,0,0,0.5);
-  padding:5px 12px;
-  border-radius:5px;
-  margin-right:5px;
-}
-button.copy-btn {
-  padding:5px 12px;
-  border:none;
-  border-radius:5px;
-  background:#ff7f50;
-  color:#fff;
-  cursor:pointer;
-  transition:0.3s;
-}
-button.copy-btn:hover { background:#ff4500; }
+    .button {
+      background: #ffb400;
+      border: none;
+      padding: 10px 18px;
+      color: #111;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .button:hover {
+      background: #ffd54f;
+    }
 
-#server-status {
-  margin-top:25px;
-  background:rgba(0,0,0,0.4);
-  padding:20px 25px;
-  border-radius:15px;
-  display:inline-block;
-  box-shadow:0 5px 15px rgba(0,0,0,0.4);
-}
-#player-count { font-weight:bold; font-size:1.2em; }
+    h1, h2, h3 { margin: 0; }
 
-.section {
-  margin:40px 20px;
-  padding:25px;
-  background:rgba(0,0,0,0.3);
-  border-radius:20px;
-  max-width:1000px;
-  margin-left:auto;
-  margin-right:auto;
-  text-align:left;
-}
-.section h2 {
-  font-size:2em;
-  margin-bottom:15px;
-  text-align:center;
-  text-shadow:2px 2px #000;
-}
+    .section {
+      display: none;
+      padding: 60px 20px;
+      text-align: center;
+      min-height: 80vh;
+    }
 
-/* Son Kayıtlar Animasyon */
-#latest-joins ul {
-  list-style:none;
-  text-align:center;
-  padding:0;
-}
-#latest-joins li {
-  opacity:0;
-  transform:translateY(30px);
-  animation:slideFade 0.8s forwards;
-  margin:6px 0;
-}
-#latest-joins li:nth-child(1){ animation-delay:0.2s; }
-#latest-joins li:nth-child(2){ animation-delay:0.4s; }
-#latest-joins li:nth-child(3){ animation-delay:0.6s; }
-#latest-joins li:nth-child(4){ animation-delay:0.8s; }
-#latest-joins li:nth-child(5){ animation-delay:1s; }
+    #main-content {
+      display: block;
+      background: linear-gradient(135deg, #1e1e2f, #292957);
+    }
 
-@keyframes slideFade {
-  from { opacity:0; transform:translateY(30px); }
-  to { opacity:1; transform:translateY(0); }
-}
+    #market-content {
+      background: linear-gradient(135deg, #202040, #2a2a6e);
+    }
 
-/* Market Kart Tasarımı */
-.market-card {
-  background:rgba(0,0,0,0.6);
-  border-radius:15px;
-  display:inline-block;
-  margin:15px;
-  padding:20px;
-  width:220px;
-  transition:0.3s;
-}
-.market-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.5); }
+    .market-card {
+      background: #2b2b4d;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px;
+      display: inline-block;
+      width: 230px;
+      vertical-align: top;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      transition: 0.3s;
+    }
+    .market-card:hover {
+      transform: scale(1.05);
+    }
 
-footer {
-  text-align:center;
-  padding:30px 20px;
-  background:rgba(0,0,0,0.5);
-  margin-top:40px;
-  border-top:2px solid #ff7f50;
-}
-footer a { margin:0 10px; transition:0.3s; }
-footer a:hover { color:#ff4500; }
+    /* Son Kayıtlar */
+    #latest-joins {
+      background: linear-gradient(135deg, #1e1e2f, #2c2c4a);
+    }
+    .player-card {
+      width: 140px;
+      background: #292952;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: all 0.6s ease;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    .player-card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .player-card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 5px;
+      margin-bottom: 8px;
+    }
 
-@media(max-width:900px){
-  .market-card { width:80%; }
-}
-</style>
+    @media (max-width:600px) {
+      .market-card { width: 180px; }
+      .player-card { width:120px; padding:10px; }
+      .player-card img { width:56px; height:56px; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Valoria Craft</h1>
-  <p class="subtitle">Minecraft BoxPvP Sunucusu - Sürüm 1.20.1</p>
-  <a href="#" class="button" id="market-link">Market</a>
-  <a href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank" class="button">Rehber Form</a>
-  <a href="https://www.youtube.com/@BeratSagirli" target="_blank" class="button">YouTube Kanalımız</a>
-  <a href="https://github.com/ValoriaCraft770" target="_blank" class="button">GitHub Profili</a>
-
-  <p style="margin-top:25px;">Sunucu IP: <span id="server-ip">ValoriaCraft.aternos.me</span>
-  <button class="copy-btn" onclick="copyIP()">Kopyala</button></p>
-
-  <div id="server-status">
-    <p>Şu anki oyuncu sayısı: <span id="player-count">0</span></p>
-    <p id="server-online-status">Durum: Bilinmiyor</p>
-  </div>
-</header>
-
-<div class="section rules">
-  <h2>Kurallar</h2>
-  <ul>
-    <li>Küfür ve hakaret yasaktır.</li>
-    <li>Hile yapmak yasaktır.</li>
-    <li>Oyunculara saygılı olun.</li>
-    <li>Reklam yapmak yasaktır.</li>
-    <li>Yetkililere Saygılı Olun.</li>
-  </ul>
-</div>
-
-<!-- Son Kayıtlar -->
-<div class="section" id="latest-joins">
-  <h2>Son Kayıtlar</h2>
-  <p style="text-align:center; margin-bottom:15px;">Sunucumuza en son katılan oyuncular:</p>
-  <ul>
-    <li><strong>BeratSagirli</strong></li>
-    <li><strong>ValoriaCraftTR</strong></li>
-    <li><strong>DarkWarrior</strong></li>
-    <li><strong>EnderMaster</strong></li>
-    <li><strong>BuilderPro</strong></li>
-  </ul>
-</div>
-
-<!-- Market Sayfası -->
-<div id="market-content" style="display:none; padding:40px 20px; text-align:center; min-height:70vh;
-background:linear-gradient(135deg, #202040, #2a2a6e); position:relative;">
-  <button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
-  <h2 style="color:#ffeb3b;">Market</h2>
-
-  <!-- Menü Seçimi -->
-  <div style="margin:20px 0;">
-    <button class="button" onclick="showVIP()">VIP Üyelikler</button>
-    <button class="button" onclick="showCrates()">Kasa Anahtarları</button>
-  </div>
-
-  <!-- VIP Üyelikler Bölümü -->
-  <div id="vip-section" style="display:block;">
-    <h3 style="margin-bottom:15px;">Bütün VIP’ler 30 Günlüktür.</h3>
-    <div class="market-card">
-      <h3>VIP</h3>
-      <p>• VIP Tagı</p>
-      <p>• /pv Komutuyla 1 Ekstra Depo</p>
-      <p>• VIP Kit Erişimi</p>
-      <p>• 1000 Para</p>
-      <button class="button">20 TL</button>
-    </div>
-    <div class="market-card">
-      <h3>VIP+</h3>
-      <p>• VIP+ Tagı</p>
-      <p>• 2 Ekstra Depo</p>
-      <p>• VIP+ Kit Erişimi</p>
-      <p>• 2500 Para</p>
-      <p>• 2 Günlük Kasa Anahtarı</p>
-      <button class="button">35 TL</button>
-    </div>
-    <div class="market-card">
-      <h3>MVIP</h3>
-      <p>• MVIP Tagı</p>
-      <p>• 3 Ekstra Depo</p>
-      <p>• MVIP Kit Erişimi</p>
-      <p>• 5000 Para</p>
-      <p>• 3 Günlük Kasa Anahtarı</p>
-      <p>• 1 Event Kasası Anahtarı</p>
-      <button class="button">50 TL</button>
-    </div>
-    <div class="market-card">
-      <h3>ValoriaCraft VIP</h3>
-      <p>• VCVIP Tagı</p>
-      <p>• 5 Ekstra Depo</p>
-      <p>• ValoriaCraft VIP Kit Erişimi</p>
-      <p>• 10.000 Para</p>
-      <p>• 5 Günlük Kasası Anahtarı</p>
-      <p>• 2 Event Kasası Anahtarı</p>
-      <button class="button">75 TL</button>
+  <!-- ANA SAYFA -->
+  <div id="main-content" class="section">
+    <h1 style="font-size:2.5em; margin-bottom:15px;">ValoriaCraft</h1>
+    <p style="font-size:1.1em;">Minecraft dünyasının en gelişmiş Türk sunucusu</p>
+    <p>IP: <strong>ValoriaCraft.aternos.me</strong></p>
+    <div style="margin-top:25px;">
+      <button class="button" onclick="showMarket()">Market</button>
+      <button class="button" onclick="showJoins()">Son Kayıtlar</button>
     </div>
   </div>
 
-  <!-- Kasalar Bölümü -->
-  <div id="crates-section" style="display:none;">
-    <div class="market-card">
-      <h3>Valoria Kasası Anahtarı</h3>
-      <p>• Neredeyse en değerli kasa anahtarı!</p>
-      <button class="button">40 TL</button>
+  <!-- MARKET -->
+  <div id="market-content" class="section">
+    <button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
+    <h2 style="color:#ffeb3b;">Market</h2>
+
+    <div style="margin:20px 0;">
+      <button class="button" onclick="showVIP()">VIP Üyelikler</button>
+      <button class="button" onclick="showCrates()">Kasa Anahtarları</button>
     </div>
-    <div class="market-card">
-      <h3>Kit Kasası Anahtarı</h3>
-      <p>• Kit kazanma şansı verir.</p>
-      <p>• En nadir kasa türüdür.</p>
-      <button class="button">75 TL</button>
+
+    <!-- VIP Üyelikler -->
+    <div id="vip-section" style="display:block;">
+      <h3 style="margin-bottom:15px;">Bütün VIP’ler 30 Günlüktür.</h3>
+      <div class="market-card">
+        <h3>VIP</h3>
+        <p>• VIP Tagı</p>
+        <p>• Ekstra Depo /pv</p>
+        <p>• VIP Kit Erişimi</p>
+        <p>• 1000 Para</p>
+        <button class="button">20 TL</button>
+      </div>
+      <div class="market-card">
+        <h3>VIP+</h3>
+        <p>• VIP+ Tagı</p>
+        <p>• Ekstra Depo /pv</p>
+        <p>• VIP+ Kit Erişimi</p>
+        <p>• 2500 Para</p>
+        <p>• 2 Günlük Kasa Anahtarı</p>
+        <button class="button">35 TL</button>
+      </div>
+      <div class="market-card">
+        <h3>MVIP</h3>
+        <p>• MVIP Tagı</p>
+        <p>• Ekstra Depo /pv</p>
+        <p>• MVIP Kit Erişimi</p>
+        <p>• 5000 Para</p>
+        <p>• 3 Günlük Kasa Anahtarı</p>
+        <p>• 1 Event Kasası Anahtarı</p>
+        <button class="button">50 TL</button>
+      </div>
+      <div class="market-card">
+        <h3>ValoriaCraft VIP</h3>
+        <p>• VCVIP Tagı</p>
+        <p>• Ekstra Depo /pv</p>
+        <p>• ValoriaCraft VIP Kit Erişimi</p>
+        <p>• 10.000 Para</p>
+        <p>• 5 Günlük Kasası Anahtarı</p>
+        <p>• 2 Event Kasası Anahtarı</p>
+        <button class="button">75 TL</button>
+      </div>
+    </div>
+
+    <!-- Kasalar -->
+    <div id="crates-section" style="display:none;">
+      <div class="market-card">
+        <h3>Valoria Kasası Anahtarı</h3>
+        <p>• Neredeyse en değerli kasa anahtarı!</p>
+        <button class="button">40 TL</button>
+      </div>
+      <div class="market-card">
+        <h3>Kit Kasası Anahtarı</h3>
+        <p>• Kit kazanma şansı verir.</p>
+        <p>• En nadir kasa türüdür.</p>
+        <button class="button">75 TL</button>
+      </div>
     </div>
   </div>
-</div>
 
-<footer>
-  <p>&copy; 2025 Valoria Craft | Tüm Hakları Saklıdır</p>
-  <a href="https://www.youtube.com/@BeratSagirli" target="_blank">YouTube</a>
-  <a href="https://github.com/ValoriaCraft770" target="_blank">GitHub</a>
-</footer>
+  <!-- SON KAYITLAR -->
+  <div id="latest-joins" class="section">
+    <button class="button" onclick="showMain()">Ana Sayfaya Dön</button>
+    <h2>Son Kayıtlar</h2>
+    <p style="font-size:1.1em; color:#d0d0d0; margin-bottom:30px;">Sunucumuza en son katılan oyuncular</p>
+    <div id="player-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
+      <div class="player-card"><p>Yükleniyor...</p></div>
+    </div>
+  </div>
 
-<script>
-function copyIP(){
-  const ip = document.getElementById('server-ip').innerText;
-  navigator.clipboard.writeText(ip).then(()=>alert('IP kopyalandı: '+ip));
-}
-const mainContent = document.querySelector('header');
-const marketContent = document.getElementById('market-content');
-document.getElementById('market-link').addEventListener('click', ()=>{
-  mainContent.style.display='none';
-  document.querySelector('.rules').style.display='none';
-  document.getElementById('latest-joins').style.display='none';
-  marketContent.style.display='block';
-});
-function showMain(){
-  marketContent.style.display='none';
-  mainContent.style.display='block';
-  document.querySelector('.rules').style.display='block';
-  document.getElementById('latest-joins').style.display='block';
-}
-function showVIP(){
-  document.getElementById('vip-section').style.display='block';
-  document.getElementById('crates-section').style.display='none';
-}
-function showCrates(){
-  document.getElementById('vip-section').style.display='none';
-  document.getElementById('crates-section').style.display='block';
-}
+  <script>
+    // Sayfa geçişleri
+    function showMain() {
+      hideAll(); document.getElementById("main-content").style.display = "block";
+    }
+    function showMarket() {
+      hideAll(); document.getElementById("market-content").style.display = "block";
+      showVIP();
+    }
+    function showJoins() {
+      hideAll(); document.getElementById("latest-joins").style.display = "block";
+      fetchPlayers();
+    }
+    function showVIP() {
+      document.getElementById("vip-section").style.display = "block";
+      document.getElementById("crates-section").style.display = "none";
+    }
+    function showCrates() {
+      document.getElementById("vip-section").style.display = "none";
+      document.getElementById("crates-section").style.display = "block";
+    }
+    function hideAll() {
+      document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+    }
 
-// Sunucu Durumu
-const serverAddress = 'ValoriaCraft.aternos.me';
-async function fetchServerStatus(){
-  try {
-    const res = await fetch(`https://api.mcstatus.io/v2/status/java/${serverAddress}`);
-    const data = await res.json();
-    document.getElementById('player-count').innerText = data.players.online;
-    const s = document.getElementById('server-online-status');
-    if(data.online){ s.innerText='Durum: Online'; s.style.color='#00ff00'; }
-    else { s.innerText='Durum: Offline'; s.style.color='#ff0000'; }
-  } catch(e){
-    document.getElementById('server-online-status').innerText='Durum: Bilinmiyor';
-  }
-}
-fetchServerStatus();
-setInterval(fetchServerStatus, 30000);
-</script>
+    // Son kayıtlar
+    const serverAddress = "ValoriaCraft.aternos.me"; 
+    const playerContainer = document.getElementById("player-container");
+
+    async function fetchPlayers() {
+      try {
+        const res = await fetch(`https://api.mcstatus.io/v2/status/java/${serverAddress}`);
+        const data = await res.json();
+        playerContainer.innerHTML = "";
+
+        if (!data.online) {
+          playerContainer.innerHTML = `<div class="player-card show"><p>Sunucu kapalı.</p></div>`;
+          return;
+        }
+
+        const players = data.players.list || [];
+        if (players.length === 0) {
+          playerContainer.innerHTML = `<div class="player-card show"><p>Henüz oyuncu yok.</p></div>`;
+          return;
+        }
+
+        players.slice(0, 6).forEach((p, i) => {
+          const card = document.createElement("div");
+          card.className = "player-card";
+          card.innerHTML = `
+            <img src="https://mc-heads.net/avatar/${p.name_clean}/64" alt="${p.name_clean}">
+            <p>${p.name_clean}</p>`;
+          playerContainer.appendChild(card);
+          setTimeout(() => card.classList.add("show"), 150 * i);
+        });
+
+      } catch (err) {
+        playerContainer.innerHTML = `<div class="player-card show"><p>Bilgiler alınamadı.</p></div>`;
+      }
+    }
+  </script>
 </body>
 </html>
