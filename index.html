@@ -1,182 +1,273 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Valoria Craft</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background: #1a1a2e;
-  color: #fff;
-}
+  :root{
+    --topbar-bg:#111;       /* üst bar arkaplan (farketmez dedin, koyu seçtim) */
+    --box-bg:#222;          /* kutu arkaplan (oyuncu kutusu için kontrast) */
+    --youtube-red:#c4302b;  /* youtube kutu rengi (kırmızı) */
+    --accent:#ffcc33;
+    --text:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Roboto", sans-serif;
+    background:#0f1226;
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+  }
 
-/* --- Üst Bar --- */
-.top-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0d0d0d;
-  padding: 10px 0;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.6);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
+  /* TOP BAR */
+  .topbar{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:84px;
+    background:var(--topbar-bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    padding:10px 18px;
+    z-index:9999;
+    box-shadow:0 6px 18px rgba(0,0,0,0.6);
+  }
 
-/* Kutu Ortak Stil */
-.bar-box {
-  background: #2a2a2a;
-  border: 2px solid #000;
-  border-radius: 8px;
-  margin: 0 10px;
-  height: 64px;
-  width: 64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-}
-.bar-box:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255,204,51,0.7);
-}
+  /* kutular ortak */
+  .bar-container{
+    width:100%;
+    max-width:1200px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:0 12px;
+  }
 
-/* Logo Orta Kutu */
-.logo-box {
-  width: auto;
-  background: none;
-  border: none;
-  box-shadow: none;
-  cursor: default;
-}
-.logo-box img {
-  height: 64px;
-}
+  .box{
+    width:64px;
+    height:64px;
+    min-width:64px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    user-select:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:0 6px 14px rgba(0,0,0,0.6);
+  }
+  .box:active{ transform:translateY(1px); }
 
-/* Oyuncu Sayısı Kutusu */
-.player-box {
-  background: #ffcc33;
-  color: #000;
-  font-weight: bold;
-  flex-direction: column;
-  text-align: center;
-}
-.player-box span {
-  font-size: 14px;
-}
-.player-box strong {
-  font-size: 16px;
-}
+  /* sol oyuncu kutusu */
+  .player-box{
+    background:var(--box-bg);
+    border:2px solid rgba(0,0,0,0.6);
+    color:var(--accent);
+    font-weight:700;
+    flex-direction:column;
+    cursor:pointer;
+  }
+  .player-box .num{
+    font-size:18px;
+    line-height:1;
+  }
+  .player-box .lbl{
+    font-size:11px;
+    opacity:.85;
+  }
 
-/* YouTube Kutusu */
-.youtube-box {
-  background: #c4302b;
-}
-.youtube-box svg {
-  width: 40px;
-  height: 28px;
-  fill: white;
-}
+  /* logo ortada */
+  .logo-box{
+    flex:0 1 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:64px;
+    gap:12px;
+    padding:4px 12px;
+    pointer-events:none; /* logo tıklanmasın */
+    background:transparent;
+  }
+  .logo-box img{
+    height:64px;
+    display:block;
+    object-fit:contain;
+  }
+  .logo-fallback{
+    font-weight:900;
+    color:var(--accent);
+    font-size:20px;
+    text-shadow:1px 1px 0 #000;
+  }
 
-/* --- İçerik --- */
-.main-content {
-  padding-top: 120px;
-  text-align: center;
-}
-.main-content h1 {
-  font-size: 3em;
-  color: #ffcc33;
-  text-shadow: 2px 2px 0 #000;
-}
-.main-content p {
-  font-size: 1.3em;
-  color: #ddd;
-  margin-bottom: 30px;
-}
+  /* youtube kutusu */
+  .youtube-box{
+    background:var(--youtube-red);
+    cursor:pointer;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .youtube-box svg{ width:34px; height:24px; display:block; }
 
-/* Buton */
-.button {
-  display: inline-block;
-  background: linear-gradient(45deg, #ff7f50, #ff4500);
-  padding: 10px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: 0.3s;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.4);
-}
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
+  /* alt içerik */
+  .page-body{
+    padding-top:110px; /* topbar yer aç */
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .hero{
+    text-align:center;
+    padding:34px 18px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    margin:0;
+    font-size:36px;
+    color:var(--accent);
+    text-shadow:2px 2px 0 #000;
+  }
+  .hero p{ margin:6px 0 18px; color:#dcdcdc; }
+
+  /* responsive - küçük ekran */
+  @media (max-width:640px){
+    .bar-container{ padding:0 8px; gap:8px; }
+    .box{ width:52px; height:52px; min-width:52px; border-radius:8px; }
+    .logo-box img{ height:52px; }
+    .player-box .num{ font-size:16px; }
+    .logo-fallback{ font-size:18px; }
+    .topbar{ height:72px; padding:8px; }
+    .page-body{ padding-top:92px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Üst Bar -->
-<div class="top-bar">
-  <!-- Sol Kutu (Oyuncu) -->
-  <div class="bar-box player-box" onclick="copyIP()">
-    <strong id="player-count">0</strong>
-    <span>Oyuncu</span>
+  <!-- ÜST BAR -->
+  <div class="topbar" role="banner">
+    <div class="bar-container">
+      <!-- SOL: oyuncu sayısı kutusu (sadece sayı) -->
+      <div class="box player-box" id="player-box" title="Sunucu IP'yi kopyala" aria-label="Aktif oyuncu sayısı, tıklayınca ip kopyalanır" onclick="copyIP()">
+        <div>
+          <div class="num" id="player-num">0</div>
+          <div class="lbl">Oyuncu</div>
+        </div>
+      </div>
+
+      <!-- ORTA: logo (görsel) -->
+      <div class="logo-box" aria-hidden="false">
+        <!-- Buraya kendi logo dosyanızı koyun: logo.png.
+             Eğer farklı isimse src değerini değiştirin. 
+             onerror ile fallback metin gösteriyoruz. -->
+        <img id="site-logo" src="logo.png" alt="Valoria Craft Logo" onerror="logoFallback(this)">
+        <div id="logo-fallback" class="logo-fallback" style="display:none">VALORIA CRAFT</div>
+      </div>
+
+      <!-- SAĞ: youtube kutusu -->
+      <div class="box youtube-box" id="yt-box" title="YouTube kanalına git" aria-label="YouTube kanalı" onclick="openYouTube()">
+        <!-- minimal svg play inside rectangle -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M10 15L15 12L10 9V15Z" fill="#fff"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5 3.5H4.5C2.57 3.5 1 5.07 1 7V17C1 18.93 2.57 20.5 4.5 20.5H19.5C21.43 20.5 23 18.93 23 17V7C23 5.07 21.43 3.5 19.5 3.5ZM21 17C21 17.83 20.33 18.5 19.5 18.5H4.5C3.67 18.5 3 17.83 3 17V7C3 6.17 3.67 5.5 4.5 5.5H19.5C20.33 5.5 21 6.17 21 7V17Z" fill="#fff" opacity="0.9"/>
+        </svg>
+      </div>
+    </div>
   </div>
 
-  <!-- Orta Kutu (Logo) -->
-  <div class="bar-box logo-box">
-    <img src="f2cdb94f-2b1b-455e-8aec-a326b92c8b00.png" alt="Valoria Craft Logo">
-  </div>
+  <!-- SAYFA İÇERİĞİ -->
+  <main class="page-body" role="main">
+    <section class="hero">
+      <h1>Valoria Craft</h1>
+      <p>Minecraft BoxPvP Sunucusu — Sürüm 1.20.1</p>
+      <!-- örnek butonlar -->
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
+        <a class="button" id="open-market" href="#" onclick="openMarket(event)">Market</a>
+        <a class="button" href="https://forms.gle/T6XaP4GsLdjbXYU7A" target="_blank">Kılavuz</a>
+      </div>
+    </section>
 
-  <!-- Sağ Kutu (YouTube) -->
-  <div class="bar-box youtube-box" onclick="openYouTube()">
-    <svg viewBox="0 0 24 24">
-      <path d="M10 15L15 12L10 9V15Z"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5 3.5H4.5C2.57 3.5 1 5.07 1 7V17C1 18.93 2.57 20.5 4.5 20.5H19.5C21.43 20.5 23 18.93 23 17V7C23 5.07 21.43 3.5 19.5 3.5ZM21 17C21 17.83 20.33 18.5 19.5 18.5H4.5C3.67 18.5 3 17.83 3 17V7C3 6.17 3.67 5.5 4.5 5.5H19.5C20.33 5.5 21 6.17 21 7V17Z"/>
-    </svg>
-  </div>
-</div>
+    <!-- Aşağıya diğer içerikler (kurallar, market vb.) rahatça eklenir -->
+    <section class="section rules" id="rules">
+      <h2>Kurallar</h2>
+      <ul>
+        <li>Küfür ve hakaret yasaktır.</li>
+        <li>Hile yapmak yasaktır.</li>
+        <li>Oyunculara saygılı olun.</li>
+        <li>Reklam yapmak yasaktır.</li>
+        <li>Yetkililere saygılı olun.</li>
+      </ul>
+    </section>
+  </main>
 
-<!-- Ana İçerik -->
-<div class="main-content">
-  <h1>Valoria Craft</h1>
-  <p>Minecraft BoxPvP Sunucusu - Sürüm 1.20.1</p>
-  <a href="#" class="button">Market</a>
-  <a href="#" class="button">Rehber</a>
-</div>
+  <footer style="text-align:center; padding:28px 12px; color:#bbb;">
+    &copy; 2025 Valoria Craft | Tüm Hakları Saklıdır
+  </footer>
 
 <script>
-// IP kopyalama
-function copyIP() {
-  const ip = "ValoriaCraft.aternos.me";
-  navigator.clipboard.writeText(ip);
-  alert("Sunucu IP kopyalandı: " + ip);
-}
+  // Kullanıcı verdiğin youtube linki
+  const YT_LINK = "https://youtube.com/@beratsagirli";
+  const SERVER_IP = "ValoriaCraft.aternos.me";
+  const SERVER_ADDRESS = "ValoriaCraft.aternos.me";
 
-// YouTube yönlendirme
-function openYouTube() {
-  window.open("https://www.youtube.com/@BeratSagirli", "_blank");
-}
-
-// Oyuncu sayısı güncelleme
-async function updatePlayers() {
-  try {
-    const res = await fetch("https://api.mcstatus.io/v2/status/java/ValoriaCraft.aternos.me");
-    const data = await res.json();
-    const count = data.online ? data.players.online : 0;
-    document.getElementById("player-count").textContent = count;
-  } catch {
-    document.getElementById("player-count").textContent = "?";
+  // Logo onerror fallback: gösterilecek yedek metin
+  function logoFallback(img){
+    img.style.display = "none";
+    const fallback = document.getElementById("logo-fallback");
+    if(fallback) fallback.style.display = "block";
   }
-}
-updatePlayers();
-setInterval(updatePlayers, 30000);
-</script>
 
+  // IP kopyalama
+  async function copyIP(){
+    try{
+      await navigator.clipboard.writeText(SERVER_IP);
+      // kısa görsel bildirim yerine alert (basit ve güvenli)
+      alert("Sunucu IP kopyalandı: " + SERVER_IP);
+    }catch(e){
+      alert("Tarayıcı kopyalama izni yok. IP: " + SERVER_IP);
+    }
+  }
+
+  // YouTube aç
+  function openYouTube(){
+    window.open(YT_LINK, "_blank");
+  }
+
+  // Market aç (örnek davranış)
+  function openMarket(e){
+    e.preventDefault();
+    // sayfada market bölümü yoksa burayı kendi market açma kodunla değiştir
+    alert("Market açılacak (bu butonu kendi market sayfasına bağlayın).");
+  }
+
+  // Oyuncu sayısını mcstatus.io API ile çek (ilk yükleme ve her 30s)
+  async function updatePlayerCount(){
+    const numEl = document.getElementById("player-num");
+    try{
+      const res = await fetch(`https://api.mcstatus.io/v2/status/java/${SERVER_ADDRESS}`);
+      if(!res.ok) throw new Error("API hatası");
+      const data = await res.json();
+      const online = data && data.online;
+      const count = online && data.players && typeof data.players.online !== "undefined" ? data.players.online : 0;
+      numEl.textContent = String(count);
+    }catch(err){
+      console.error("Player count error:", err);
+      numEl.textContent = "-";
+    }
+  }
+  updatePlayerCount();
+  setInterval(updatePlayerCount, 30000);
+
+  // Sayfa yüklendiğinde logo var mı kontrolü (ek güvenlik)
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const img = document.getElementById("site-logo");
+    // Eğer görüntü mevcut değilse fallback göster
+    img.onerror = function(){ logoFallback(img); };
+  });
+</script>
 </body>
 </html>
